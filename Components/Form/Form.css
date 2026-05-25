@@ -1,0 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap");
+
+/* ── Tokens ─────────────────────────────── */
+:root {
+  --black:       #0a0a0a;
+  --black-card:  #111111;
+  --black-input: #181818;
+  --black-border: #252525;
+  --orange:      #ff6b1a;
+  --orange-glow: #ff6b1a33;
+  --orange-dim:  #cc4f0d;
+  --white:       #f5f5f5;
+  --muted:       #666666;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Reset ───────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Wrapper ─────────────────────────────── */
+.form-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--black);
+  background-image:
+    radial-gradient(ellipse 60% 50% at 70% 20%, var(--orange-glow), transparent),
+    radial-gradient(ellipse 40% 40% at 10% 80%, #1a0a0033, transparent);
+  font-family: "DM Sans", sans-serif;
+  padding: 2rem;
+}
+
+/* ── Card ────────────────────────────────── */
+.form-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--black-card);
+  border: 1px solid var(--black-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.5rem 2rem;
+  box-shadow:
+    0 0 0 1px #ffffff08 inset,
+    0 24px 64px #00000080;
+  animation: card-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Header ──────────────────────────────── */
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--orange);
+  color: var(--black);
+  font-size: 1.3rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 24px var(--orange-glow);
+}
+
+.form-title {
+  font-family: "Syne", sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.form-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ── Field groups ────────────────────────── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+
+.field-group:focus-within .field-label {
+  color: var(--orange);
+}
+
+/* ── Input ───────────────────────────────── */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.9rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: color var(--transition);
+}
+
+.field-group:focus-within .input-icon {
+  color: var(--orange);
+}
+
+.field-input {
+  width: 100%;
+  padding: 0.75rem 0.9rem 0.75rem 2.4rem;
+  background: var(--black-input);
+  border: 1px solid var(--black-border);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.92rem;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+.field-input::placeholder {
+  color: #3a3a3a;
+}
+
+.field-input:focus {
+  border-color: var(--orange);
+  background: #141414;
+  box-shadow: 0 0 0 3px var(--orange-glow);
+}
+
+/* ── Submit button ───────────────────────── */
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--orange);
+  color: var(--black);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: "Syne", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+  box-shadow: 0 8px 24px var(--orange-glow);
+}
+
+.btn-arrow {
+  font-size: 1.1rem;
+  transition: transform var(--transition);
+}
+
+.submit-btn:hover {
+  background: var(--orange-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px var(--orange-glow);
+}
+
+.submit-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px var(--orange-glow);
+}
+
+/* ── Footer link ─────────────────────────── */
+.form-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.form-link {
+  color: var(--orange);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.form-link:hover {
+  color: var(--white);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 480px) {
+  .form-card {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

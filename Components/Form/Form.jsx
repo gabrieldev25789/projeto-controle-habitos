@@ -1,0 +1,102 @@
+import "./Form.css";
+
+function Form() {
+  return (
+    <div className="form-wrapper">
+      <div className="form-card">
+
+        <div className="form-header">
+          <span className="form-logo">⬡</span>
+          <h1 className="form-title">Criar conta</h1>
+          <p className="form-subtitle">Comece sua jornada agora</p>
+        </div>
+
+        <form noValidate>
+
+          <div className="field-group">
+            <label htmlFor="username" className="field-label">
+              Nome de usuário
+            </label>
+            <div className="input-wrapper">
+              <span className="input-icon">@</span>
+              <input
+                id="username"
+                type="text"
+                className="field-input"
+                placeholder="seu_usuario"
+                autoComplete="username"
+              />
+            </div>
+          </div>
+
+          <div className="field-group">
+            <label htmlFor="email" className="field-label">
+              E-mail
+            </label>
+            <div className="input-wrapper">
+              <span className="input-icon">✉</span>
+              <input
+                id="email"
+                type="email"
+                className="field-input"
+                placeholder="voce@email.com"
+                autoComplete="email"
+              />
+            </div>
+          </div>
+
+          <div className="field-row">
+            <div className="field-group">
+              <label htmlFor="password" className="field-label">
+                Senha
+              </label>
+              <div className="input-wrapper">
+                <span className="input-icon">⬡</span>
+                <input
+                  id="password"
+                  type="password"
+                  className="field-input"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                />
+              </div>
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="confirm-password" className="field-label">
+                Confirmar senha
+              </label>
+              <div className="input-wrapper">
+                <span className="input-icon">⬡</span>
+                <input
+                  id="confirm-password"
+                  type="password"
+                  className="field-input"
+                  placeholder="••••••••"
+                  autoComplete="new-password"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" className="submit-btn">
+            <span className="btn-text">Criar conta</span>
+            <span className="btn-arrow">→</span>
+          </button>
+
+        </form>
+
+        <p className="form-footer">
+          Já tem uma conta?{" "}
+          <a href="#" className="form-link">
+            Entrar
+          </a>
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+export default Form;
+       
