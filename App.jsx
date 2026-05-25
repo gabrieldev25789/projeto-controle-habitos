@@ -5,8 +5,8 @@ import Home from './Components/Home/Home'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/cadastro" element={<Form />} />
+      <Route path="/" element={<Form />} />
+      <Route path="/cadastro" element={<Home />} />
     </Routes>
   )
 }
