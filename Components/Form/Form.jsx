@@ -1,6 +1,12 @@
+import { useState } from "react";
 import "./Form.css";
 
 function Form() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   return (
     <div className="form-wrapper">
       <div className="form-card">
@@ -25,6 +31,8 @@ function Form() {
                 className="field-input"
                 placeholder="seu_usuario"
                 autoComplete="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
           </div>
@@ -41,6 +49,8 @@ function Form() {
                 className="field-input"
                 placeholder="voce@email.com"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -58,6 +68,8 @@ function Form() {
                   className="field-input"
                   placeholder="••••••••"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -74,6 +86,8 @@ function Form() {
                   className="field-input"
                   placeholder="••••••••"
                   autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -99,4 +113,3 @@ function Form() {
 }
 
 export default Form;
-       
