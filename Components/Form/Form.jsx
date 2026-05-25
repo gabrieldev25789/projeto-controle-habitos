@@ -24,7 +24,7 @@ function Form() {
     
 }
     setUser({username: username, email: email, password: password})
-    navigate('/')
+    navigate('/cadastro')
   }
 
   useEffect(()=>{
