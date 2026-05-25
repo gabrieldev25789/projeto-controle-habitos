@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Form.css";
 
 function Form() {
@@ -6,6 +6,17 @@ function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [user, setUser] = useState({})
+
+  function addUser(){
+    setUser({username: username, email: email, password: password})
+  }
+
+  useEffect(()=>{
+    console.log(user)
+  },[user])
+
 
   return (
     <div className="form-wrapper">
@@ -93,7 +104,7 @@ function Form() {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
+          <button type="button" className="submit-btn" onClick={() => addUser()}>
             <span className="btn-text">Criar conta</span>
             <span className="btn-arrow">→</span>
           </button>
