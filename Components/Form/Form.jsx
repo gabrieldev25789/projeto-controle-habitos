@@ -10,13 +10,22 @@ function Form() {
   const [user, setUser] = useState({})
 
   function addUser(){
+    if(!username || !email || !password || !confirmPassword) {
+    alert("Preencha todos os campos")
+    return 
+    }
+
+    if(password !== confirmPassword){ 
+    alert("As senhas não condizem")
+    return 
+    
+}
     setUser({username: username, email: email, password: password})
   }
 
   useEffect(()=>{
     console.log(user)
   },[user])
-
 
   return (
     <div className="form-wrapper">
