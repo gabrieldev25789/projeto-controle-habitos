@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
 function Form() {
+    const navigate = useNavigate()
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +24,7 @@ function Form() {
     
 }
     setUser({username: username, email: email, password: password})
+    navigate('/')
   }
 
   useEffect(()=>{
