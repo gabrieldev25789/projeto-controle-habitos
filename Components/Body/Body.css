@@ -1,294 +1,91 @@
-/* ─────────────────────────────────────────
-   OnboardingModal.css — Habitus
-   Depende das variáveis declaradas em Form.css
-───────────────────────────────────────── */
-
-/* ── Overlay ── */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 200;
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px;
 }
 
-/* ── Modal ── */
-
-.modal {
+.card {
   background: var(--black-card);
-  border: 0.5px solid var(--black-border);
-  border-radius: 16px;
-  width: 100%;
-  max-width: 520px;
-  overflow: hidden;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.modal-body {
-  padding: 28px 28px 0;
-}
+.card--good { border: 0.5px solid #1e4d3a; }
+.card--bad  { border: 0.5px solid #4d1e1e; }
 
-/* ── Steps ── */
-
-.steps {
+.card-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 24px;
+  gap: 10px;
 }
 
-.step-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--black-border);
-  transition: background 0.2s, width 0.2s, border-radius 0.2s;
-}
-
-.step-dot--active {
-  width: 20px;
-  border-radius: 3px;
-  background: var(--green);
-}
-
-.step-dot--done {
-  background: var(--green-dim);
-}
-
-.step-label {
-  font-size: 11px;
-  color: var(--muted);
-  margin-left: 4px;
-  letter-spacing: 0.05em;
-}
-
-/* ── Ícone do step ── */
-
-.modal-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+.card-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  margin-bottom: 14px;
+  font-size: 16px;
+  flex-shrink: 0;
 }
 
-.modal-icon--bad {
-  background: #2a1212;
-  border: 0.5px solid #5a2020;
-}
+.card-icon--good { background: var(--green-glow); border: 0.5px solid var(--green); }
+.card-icon--bad  { background: #ef444422;         border: 0.5px solid #ef4444; }
 
-.modal-icon--good {
-  background: var(--green-glow);
-  border: 0.5px solid var(--green);
-}
-
-/* ── Textos ── */
-
-.modal-title {
-  font-size: 18px;
+.card-title {
+  font-size: 12px;
   font-weight: 500;
-  color: var(--white);
-  margin-bottom: 6px;
-  letter-spacing: -0.02em;
-}
-
-.modal-sub {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 20px;
-  line-height: 1.55;
-}
-
-.chips-label {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  letter-spacing: 0.07em;
 }
 
-/* ── Chips ── */
+.card-title--good { color: var(--green); }
+.card-title--bad  { color: #ef4444; }
 
-.chips {
+.divider {
+  width: 100%;
+  height: 0.5px;
+  background: var(--black-border);
+}
+
+.habit-item {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.habit-name {
+  font-size: 13px;
+  color: var(--white);
+}
+
+.days {
+  display: flex;
+  gap: 4px;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
 }
 
-.chip {
-  font-size: 12px;
-  padding: 6px 14px;
-  border-radius: 20px;
+.day {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
 }
 
-.chip-check {
-  display: none;
-  font-size: 11px;
-}
+.day--good-empty  { background: var(--black-input); border: 0.5px solid #1e4d3a; }
+.day--good-filled { background: var(--green-dim);   border: 0.5px solid var(--green); }
+.day--bad-empty   { background: var(--black-input); border: 0.5px solid #4d1e1e; }
+.day--bad-filled  { background: #b91c1c;            border: 0.5px solid #ef4444; }
 
-.chip--selected .chip-check {
-  display: inline;
-}
-
-/* Chips ruins */
-.chip--bad {
-  background: #2a1212;
-  border: 0.5px solid #5a2020;
-  color: #f87171;
-}
-
-.chip--bad.chip--selected {
-  background: #3d1515;
-  border-color: #ef4444;
-  color: #fca5a5;
-}
-
-/* Chips bons */
-.chip--good {
-  background: var(--green-glow);
-  border: 0.5px solid #1e4d3a;
-  color: #6ee7b7;
-}
-
-.chip--good.chip--selected {
-  background: #0d3327;
-  border-color: var(--green);
-  color: var(--green-bright);
-}
-
-/* ── Input customizado ── */
-
-.custom-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.custom-input {
-  flex: 1;
-  background: var(--black-input);
-  border: 0.5px solid var(--black-border);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 13px;
-  color: var(--white);
-  outline: none;
-  transition: border-color 0.15s;
-  font-family: inherit;
-}
-
-.custom-input::placeholder {
-  color: var(--muted);
-}
-
-.custom-input:focus {
-  border-color: #333;
-}
-
-.custom-add {
-  background: none;
-  border: 0.5px solid var(--black-border);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s;
-  font-family: inherit;
-}
-
-.custom-add:hover {
-  color: var(--white);
-  border-color: #333;
-}
-
-/* ── Footer ── */
-
-.modal-footer {
-  padding: 16px 28px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 0.5px solid var(--black-border);
-}
-
-.footer-left {
-  min-width: 80px;
-}
-
-.btn-skip {
-  background: none;
-  border: none;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 0;
-  font-family: inherit;
-  transition: color 0.15s;
-}
-
-.btn-skip:hover {
-  color: var(--white);
-}
-
-.selected-count {
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.selected-count__num {
-  color: var(--green);
-}
-
-.btn-next {
-  background: var(--green);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #022c1a;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.15s;
-  font-family: inherit;
-}
-
-.btn-next:hover {
-  background: var(--green-bright);
-}
-
-/* ── Responsivo ── */
-
-@media (max-width: 560px) {
-  .modal-body {
-    padding: 20px 20px 0;
-  }
-
-  .modal-footer {
-    padding: 14px 20px 20px;
-  }
-
-  .modal-title {
-    font-size: 16px;
+@media (max-width: 600px) {
+  .body-grid {
+    grid-template-columns: 1fr;
   }
 }
