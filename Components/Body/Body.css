@@ -1,272 +1,294 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ─────────────────────────────────────────
+   OnboardingModal.css — Habitus
+   Depende das variáveis declaradas em Form.css
+───────────────────────────────────────── */
 
-body {
-  font-family: Inter, sans-serif;
-}
+/* ── Overlay ── */
 
-.overlay {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, #1e293b 0%, transparent 40%),
-    radial-gradient(circle at bottom right, #0f172a 0%, transparent 40%),
-    #020617;
-
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 32px;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
 }
+
+/* ── Modal ── */
 
 .modal {
+  background: var(--black-card);
+  border: 0.5px solid var(--black-border);
+  border-radius: 16px;
   width: 100%;
-  max-width: 850px;
-  padding: 32px;
-  border-radius: 24px;
-
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(20px);
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  max-width: 520px;
+  overflow: hidden;
 }
 
-/* progresso */
+.modal-body {
+  padding: 28px 28px 0;
+}
 
-.step-bar {
+/* ── Steps ── */
+
+.steps {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 32px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .step-dot {
-  width: 12px;
-  height: 12px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #334155;
-  transition: .3s;
+  background: var(--black-border);
+  transition: background 0.2s, width 0.2s, border-radius 0.2s;
 }
 
-.active-bad {
-  background: #ef4444;
-  box-shadow: 0 0 15px rgba(239, 68, 68, .5);
+.step-dot--active {
+  width: 20px;
+  border-radius: 3px;
+  background: var(--green);
 }
 
-/* header */
+.step-dot--done {
+  background: var(--green-dim);
+}
 
-.step-header {
+.step-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* ── Ícone do step ── */
+
+.modal-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
 }
 
-.icon-badge {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+.modal-icon--bad {
+  background: #2a1212;
+  border: 0.5px solid #5a2020;
 }
 
-.icon-badge-bad {
-  background: rgba(239, 68, 68, .12);
-  border: 1px solid rgba(239, 68, 68, .25);
+.modal-icon--good {
+  background: var(--green-glow);
+  border: 0.5px solid var(--green);
 }
 
-.icon-badge-good {
-  background: rgba(34, 197, 94, .12);
-  border: 1px solid rgba(34, 197, 94, .25);
+/* ── Textos ── */
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
 }
 
-.step-title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  letter-spacing: -.5px;
+.modal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.55;
 }
 
-.step-title-bad {
-  color: #f87171;
+.chips-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
-.step-title-good {
-  color: #4ade80;
-}
-
-.step-subtitle {
-  color: #94a3b8;
-  margin-top: 6px;
-  font-size: .95rem;
-}
-
-.divider {
-  border: none;
-  height: 1px;
-  background: rgba(255,255,255,.06);
-  margin: 28px 0;
-}
-
-/* chips */
+/* ── Chips ── */
 
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 32px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .chip {
-  padding: 12px 18px;
-  border-radius: 14px;
-
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(255,255,255,.08);
-
-  color: #e2e8f0;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
   cursor: pointer;
-
-  transition: .25s ease;
-}
-
-.chip:hover {
-  transform: translateY(-3px);
-  border-color: #475569;
-  background: rgba(255,255,255,.05);
-}
-
-/* actions */
-
-.step-actions {
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  user-select: none;
   display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  font-family: inherit;
+}
+
+.chip-check {
+  display: none;
+  font-size: 11px;
+}
+
+.chip--selected .chip-check {
+  display: inline;
+}
+
+/* Chips ruins */
+.chip--bad {
+  background: #2a1212;
+  border: 0.5px solid #5a2020;
+  color: #f87171;
+}
+
+.chip--bad.chip--selected {
+  background: #3d1515;
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+/* Chips bons */
+.chip--good {
+  background: var(--green-glow);
+  border: 0.5px solid #1e4d3a;
+  color: #6ee7b7;
+}
+
+.chip--good.chip--selected {
+  background: #0d3327;
+  border-color: var(--green);
+  color: var(--green-bright);
+}
+
+/* ── Input customizado ── */
+
+.custom-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.custom-input {
+  flex: 1;
+  background: var(--black-input);
+  border: 0.5px solid var(--black-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+
+.custom-input::placeholder {
+  color: var(--muted);
+}
+
+.custom-input:focus {
+  border-color: #333;
+}
+
+.custom-add {
+  background: none;
+  border: 0.5px solid var(--black-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+
+.custom-add:hover {
+  color: var(--white);
+  border-color: #333;
+}
+
+/* ── Footer ── */
+
+.modal-footer {
+  padding: 16px 28px 24px;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  border-top: 0.5px solid var(--black-border);
 }
 
-.actions-right {
-  display: flex;
-  gap: 14px;
-  align-items: center;
+.footer-left {
+  min-width: 80px;
 }
 
-.count-badge {
-  padding: 10px 14px;
-  border-radius: 12px;
-
-  background: rgba(255,255,255,.04);
-  color: #94a3b8;
-  font-size: .9rem;
-}
-
-/* buttons */
-
-.btn {
+.btn-skip {
+  background: none;
   border: none;
-  padding: 14px 22px;
-  border-radius: 14px;
-
-  font-weight: 600;
+  font-size: 13px;
+  color: var(--muted);
   cursor: pointer;
-
-  transition: .25s;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.15s;
 }
 
-.btn-bad {
-  background: #dc2626;
-  color: white;
+.btn-skip:hover {
+  color: var(--white);
 }
 
-.btn-bad:hover {
-  background: #ef4444;
-  transform: translateY(-2px);
+.selected-count {
+  font-size: 12px;
+  color: var(--muted);
 }
 
-.btn-good {
-  background: #16a34a;
-  color: white;
+.selected-count__num {
+  color: var(--green);
 }
 
-.btn-good:hover {
-  background: #22c55e;
-  transform: translateY(-2px);
-}
-
-.btn-back {
-  background: rgba(255,255,255,.05);
-  color: #cbd5e1;
-}
-
-.btn-back:hover {
-  background: rgba(255,255,255,.08);
-}
-
-/* finish */
-
-.finish-icon {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 20px;
-  border-radius: 24px;
-
-  background: rgba(34,197,94,.12);
-  border: 1px solid rgba(34,197,94,.25);
-}
-
-.finish-title {
-  text-align: center;
-  color: white;
-  font-size: 2rem;
-}
-
-.finish-subtitle {
-  text-align: center;
-  color: #94a3b8;
-  margin: 14px 0 30px;
-}
-
-.summary-group {
-  margin-bottom: 22px;
-}
-
-.summary-label {
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-
-.summary-label-bad {
-  color: #f87171;
-}
-
-.summary-label-good {
-  color: #4ade80;
-}
-
-.summary-tags {
+.btn-next {
+  background: var(--green);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #022c1a;
+  cursor: pointer;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+  font-family: inherit;
 }
 
-.tag {
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: .9rem;
+.btn-next:hover {
+  background: var(--green-bright);
 }
 
-.tag-bad {
-  background: rgba(239,68,68,.12);
-  color: #f87171;
-}
+/* ── Responsivo ── */
 
-.tag-good {
-  background: rgba(34,197,94,.12);
-  color: #4ade80;
-}
+@media (max-width: 560px) {
+  .modal-body {
+    padding: 20px 20px 0;
+  }
 
-.step-actions-end {
-  justify-content: center;
-  margin-top: 32px;
+  .modal-footer {
+    padding: 14px 20px 20px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+  }
 }
