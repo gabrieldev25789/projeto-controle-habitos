@@ -1,22 +1,24 @@
 import { useState } from "react"
 import "./body.css"
 
-const BAD_HABITS = [
+const HABITS = {
+  bad: [ 
   { label: "redes sociais", val: "redes sociais" },
   { label: "fumar",         val: "fumar" },
   { label: "álcool",        val: "álcool" },
   { label: "procrastinar",  val: "procrastinar" },
   { label: "junk food",     val: "junk-food" },
-  { label: "pornografia",   val: "pornografia" },
-]
+  { label: "pornografia",   val: "pornografia" }
+  ],
 
-const GOOD_HABITS = [
+  good: [ 
   { label: "exercitar",     val: "exercitar" },
   { label: "leitura",       val: "leitura" },
   { label: "meditar",       val: "meditar" },
   { label: "procrastinar",  val: "procrastinar" },
-  { label: "estudar",       val: "estudar" },
-]
+  { label: "estudar",       val: "estudar" }
+  ]
+}
 
 function Body() {
   const [passo, setPasso] = useState(1)
@@ -65,7 +67,7 @@ function Body() {
 
               <p className="chips-label">sugestões</p>
               <div className="chips">
-                {BAD_HABITS.map(habit => (
+                {HABITS.bad.map(habit => (
                   <button
                     key={habit.val}
                     type="button"
@@ -127,7 +129,7 @@ function Body() {
 
               <p className="chips-label">sugestões</p>
               <div className="chips">
-                {GOOD_HABITS.map((habit)=>(
+                {HABITS.good.map((habit)=>(
                   <button
                   key={habit.val}
                   className={`chip chip--good ${habitosSelecionados.includes(habit.val) ? "chip--selected" : ""}`}
