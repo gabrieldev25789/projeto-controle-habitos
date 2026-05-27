@@ -15,14 +15,12 @@
   { label: "exercitar",     val: "exercitar" },
   { label: "leitura",       val: "leitura" },
   { label: "meditar",       val: "meditar" },
-  { label: "procrastinar",  val: "procrastinar" },
   { label: "estudar",       val: "estudar" }
   ]
 }
 
-function Modal({onFinish}){
+function Modal({onFinish, viciosSelecionados, setViciosSelecionados, habitosSelecionados, setHabitosSelecionados}){
     const [passo, setPasso] = useState(1)
-    const [viciosSelecionados, setViciosSelecionados] = useState([])
 
   function toggleVicio(val) {
     setViciosSelecionados(prev => {
@@ -35,7 +33,6 @@ function Modal({onFinish}){
     setPasso(2)
   }
 
-  const [habitosSelecionados, setHabitosSelecionados] = useState([])
 
   function toggleHabitos(val){
     setHabitosSelecionados(prev => {
