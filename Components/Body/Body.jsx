@@ -10,12 +10,20 @@ const BAD_HABITS = [
   { label: "pornografia",   val: "pornografia" },
 ]
 
+const GOOD_HABITS = [
+  { label: "exercitar",     val: "exercitar" },
+  { label: "leitura",       val: "leitura" },
+  { label: "meditar",       val: "meditar" },
+  { label: "procrastinar",  val: "procrastinar" },
+  { label: "estudar",       val: "estudar" },
+]
+
 function Body() {
   const [passo, setPasso] = useState(1)
-  const [selecionados, setSelecionados] = useState([])
+  const [viciosSelecionados, setViciosSelecionados] = useState([])
 
   function toggleVicio(val) {
-    setSelecionados(prev => {
+    setViciosSelecionados(prev => {
       if (!prev.includes(val) && prev.length >= 3) return prev
       return prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]
     })
@@ -23,6 +31,15 @@ function Body() {
 
   function continuar() {
     setPasso(2)
+  }
+
+  const [habitosSelecionados, setHabitosSelecionados] = useState([])
+
+  function toggleHabitos(val){
+    setHabitosSelecionados(prev => {
+      if (!prev.includes(val) && prev.length >= 3) return prev
+      return prev.includes(val) ? prev.filter(v => v !== val) : [...prev, val]
+    })
   }
 
   return (
@@ -52,10 +69,10 @@ function Body() {
                   <button
                     key={habit.val}
                     type="button"
-                    className={`chip chip--bad ${selecionados.includes(habit.val) ? "chip--selected" : ""}`}
+                    className={`chip chip--bad ${viciosSelecionados.includes(habit.val) ? "chip--selected" : ""}`}
                     onClick={() => toggleVicio(habit.val)}
                   >
-                    {selecionados.includes(habit.val) && <span className="chip-check">✓</span>}
+                    {viciosSelecionados.includes(habit.val) && <span className="chip-check">✓</span>}
                     {habit.label}
                   </button>
                 ))}
@@ -74,9 +91,9 @@ function Body() {
 
             <div className="modal-footer">
               <div className="footer-left">
-                {selecionados.length > 0 ? (
+                {viciosSelecionados.length > 0 ? (
                   <span className="selected-count">
-                    <span className="selected-count__num">{selecionados.length}</span> selecionados
+                    <span className="selected-count__num">{viciosSelecionados.length}</span> selecionados
                   </span>
                 ) : (
                   <button type="button" className="btn-skip">pular</button>
@@ -86,7 +103,6 @@ function Body() {
                 continuar →
               </button>
             </div>
-
           </div>
         </div>
       )}
@@ -111,14 +127,16 @@ function Body() {
 
               <p className="chips-label">sugestões</p>
               <div className="chips">
-                <button type="button" className="chip chip--good">exercitar</button>
-                <button type="button" className="chip chip--good">leitura</button>
-                <button type="button" className="chip chip--good">meditar</button>
-                <button type="button" className="chip chip--good">beber água</button>
-                <button type="button" className="chip chip--good">dormir bem</button>
-                <button type="button" className="chip chip--good">estudar</button>
-                <button type="button" className="chip chip--good">gratidão</button>
-                <button type="button" className="chip chip--good">cozinhar</button>
+                {GOOD_HABITS.map((habit)=>(
+                  <button
+                  key={habit.val}
+                  className={`chip chip--good ${habitosSelecionados.includes(habit.val) ? "chip--selected" : ""}`}
+                  onClick={() => toggleHabitos(habit.val)}
+                  >
+                  {habitosSelecionados.includes(habit.val) && <span className="chip-check">✓</span>}
+                    {habit.label}
+                  </button>
+                ))}
               </div>
 
               <div className="custom-row">
@@ -134,7 +152,13 @@ function Body() {
 
             <div className="modal-footer">
               <div className="footer-left">
-                <button type="button" className="btn-skip">pular</button>
+                {habitosSelecionados.length > 0 ? (
+                  <span className="selected-count">
+                    <span className="selected-count__num">{habitosSelecionados.length}</span> selecionados
+                  </span>
+                ) : (
+                  <button type="button" className="btn-skip">pular</button>
+                )}
               </div>
               <button type="button" className="btn-next">ir pro painel →</button>
             </div>
