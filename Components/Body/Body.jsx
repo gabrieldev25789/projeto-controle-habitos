@@ -20,6 +20,8 @@ const HABITS = {
   ]
 }
 
+console.log("teste")
+
 function Body() {
   const [passo, setPasso] = useState(1)
   const [viciosSelecionados, setViciosSelecionados] = useState([])
