@@ -22,7 +22,8 @@ const HABITS = {
 
 console.log("teste")
 
-function Body() {
+function Body({ onFinish }) {
+
   const [passo, setPasso] = useState(1)
   const [viciosSelecionados, setViciosSelecionados] = useState([])
 
@@ -46,6 +47,10 @@ function Body() {
     })
   }
 
+  function goHome(){
+    onFinish()
+  }
+  
   return (
     <>
 
@@ -164,7 +169,7 @@ function Body() {
                   <button type="button" className="btn-skip">pular</button>
                 )}
               </div>
-              <button type="button" className="btn-next">ir pro painel →</button>
+              <button type="button" className="btn-next" onClick={goHome}>ir pro painel →</button>
             </div>
 
           </div>
