@@ -17,6 +17,12 @@ function Form() {
     return 
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+    alert("E-mail inválido")
+    return
+    } 
+
     if(password !== confirmPassword){ 
     alert("As senhas não condizem")
     return 
