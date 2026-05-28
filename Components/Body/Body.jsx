@@ -15,6 +15,7 @@ function HabitCalendar({ name, type }) {
   const [marked, setMarked] = useState({})
 
   function toggleDay(day) {
+    if (day > today) return
     setMarked(prev => ({ ...prev, [day]: !prev[day] }))
   }
 
@@ -44,7 +45,9 @@ function HabitCalendar({ name, type }) {
               key={day}
               className={[
                 "cal-day",
-                `cal-day--${type}-${marked[day] ? "on" : "off"}`,
+                day > today
+                  ? "cal-day--future"
+                  : `cal-day--${type}-${marked[day] ? "on" : "off"}`,
                 day === today ? "cal-day--today" : ""
               ].join(" ")}
               onClick={() => toggleDay(day)}
