@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./body.css"
+import "./Body.css"
 
 const DAYS_LABEL = ["D", "S", "T", "Q", "Q", "S", "S"]
 
@@ -10,6 +10,7 @@ function HabitCalendar({ name, type }) {
   const today = now.getDate()
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const firstDay = new Date(year, month, 1).getDay()
+  const monthName = now.toLocaleString("pt-BR", { month: "long", year: "numeric" })
 
   const [marked, setMarked] = useState({})
 
@@ -21,8 +22,11 @@ function HabitCalendar({ name, type }) {
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
 
   return (
-    <div className="habit-row">
-      <span className="habit-name">{name}</span>
+    <div className={`card card--${type}`}>
+      <div className="card-header">
+        <span className="habit-name">{name}</span>
+        <span className="month-label">{monthName}</span>
+      </div>
 
       <div className="cal">
         <div className="cal-header">
@@ -55,42 +59,26 @@ function HabitCalendar({ name, type }) {
 }
 
 function Body({ habitosSelecionados = [], viciosSelecionados = [] }) {
-  const monthName = new Date().toLocaleString("pt-BR", { month: "long", year: "numeric" })
-
   return (
     <div className="body-wrap">
 
-      <div className="card card--good">
-        <div className="card-header">
-          <div className="card-icon card-icon--good">🌱</div>
-          <span className="card-title card-title--good">hábitos bons</span>
-          <span className="month-label">{monthName}</span>
+      {habitosSelecionados.length > 0 && (
+        <div className="section-label section-label--good">
+          🌱 hábitos bons
         </div>
-        <div className="habit-block">
-          {habitosSelecionados.map((h, i) => (
-            <div key={h}>
-              {i > 0 && <div className="divider" />}
-              <HabitCalendar name={h} type="good" />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
+      {habitosSelecionados.map(h => (
+        <HabitCalendar key={h} name={h} type="good" />
+      ))}
 
-      <div className="card card--bad">
-        <div className="card-header">
-          <div className="card-icon card-icon--bad">🔥</div>
-          <span className="card-title card-title--bad">vícios</span>
-          <span className="month-label">{monthName}</span>
+      {viciosSelecionados.length > 0 && (
+        <div className="section-label section-label--bad">
+          🔥 vícios
         </div>
-        <div className="habit-block">
-          {viciosSelecionados.map((v, i) => (
-            <div key={v}>
-              {i > 0 && <div className="divider" />}
-              <HabitCalendar name={v} type="bad" />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
+      {viciosSelecionados.map(v => (
+        <HabitCalendar key={v} name={v} type="bad" />
+      ))}
 
     </div>
   )
