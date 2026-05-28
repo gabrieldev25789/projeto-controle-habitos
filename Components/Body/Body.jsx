@@ -12,12 +12,22 @@ function HabitCalendar({ name, type }) {
   const firstDay = new Date(year, month, 1).getDay()
   const monthName = now.toLocaleString("pt-BR", { month: "long", year: "numeric" })
 
-  const [marked, setMarked] = useState({})
 
-  function toggleDay(day) {
-    if (day > today) return
-    setMarked(prev => ({ ...prev, [day]: !prev[day] }))
-  }
+const storageKey = `marked-${name}-${year}-${month}`
+
+const [marked, setMarked] = useState(() => {
+  const saved = localStorage.getItem(storageKey)
+  return saved ? JSON.parse(saved) : {}
+})
+
+function toggleDay(day) {
+  if (day > today) return
+  setMarked(prev => {
+    const next = { ...prev, [day]: !prev[day] }
+    localStorage.setItem(storageKey, JSON.stringify(next))
+    return next
+  })
+}
 
   const blanks = Array(firstDay).fill(null)
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
