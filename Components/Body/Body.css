@@ -1,17 +1,22 @@
-.body-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 24px;
+/* ─────────────────────────────────────────
+   body.css — Habitus
+   Depende das variáveis declaradas em Form.css
+───────────────────────────────────────── */
+
+.body-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  max-width: 480px;
 }
+
+/* ── Cards ── */
 
 .card {
   background: var(--black-card);
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  border-radius: 10px;
+  padding: 14px 16px;
 }
 
 .card--good { border: 0.5px solid #1e4d3a; }
@@ -20,17 +25,18 @@
 .card-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .card-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 12px;
   flex-shrink: 0;
 }
 
@@ -38,7 +44,7 @@
 .card-icon--bad  { background: #ef444422;         border: 0.5px solid #ef4444; }
 
 .card-title {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -47,45 +53,125 @@
 .card-title--good { color: var(--green); }
 .card-title--bad  { color: #ef4444; }
 
-.divider {
-  width: 100%;
-  height: 0.5px;
-  background: var(--black-border);
+.month-label {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: auto;
+  text-transform: capitalize;
 }
 
-.habit-item {
+/* ── Habit block ── */
+
+.habit-block {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.habit-name {
-  font-size: 13px;
-  color: var(--white);
+.divider {
+  height: 0.5px;
+  background: var(--black-border);
 }
 
-.days {
+/* ── Habit row ── */
+
+.habit-row {
   display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
-.day {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+.habit-name {
+  font-size: 11px;
+  color: var(--white);
+  width: 80px;
   flex-shrink: 0;
 }
 
-.day--good-empty  { background: var(--black-input); border: 0.5px solid #1e4d3a; }
-.day--good-filled { background: var(--green-dim);   border: 0.5px solid var(--green); }
-.day--bad-empty   { background: var(--black-input); border: 0.5px solid #4d1e1e; }
-.day--bad-filled  { background: #b91c1c;            border: 0.5px solid #ef4444; }
+/* ── Calendário ── */
 
-@media (max-width: 600px) {
-  .body-grid {
-    grid-template-columns: 1fr;
+.cal {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.cal-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 1px;
+}
+
+.cal-label {
+  font-size: 9px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-day {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: background 0.12s, border-color 0.12s;
+  user-select: none;
+}
+
+.cal-day--empty {
+  cursor: default;
+  background: none;
+  border: none;
+}
+
+.cal-day--today {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.cal-day--good-off {
+  background: var(--black-input);
+  border: 0.5px solid #1a3d2a;
+}
+
+.cal-day--good-on {
+  background: var(--green-dim);
+  border: 0.5px solid var(--green);
+  color: #d1fae5;
+}
+
+.cal-day--bad-off {
+  background: var(--black-input);
+  border: 0.5px solid #3d1a1a;
+}
+
+.cal-day--bad-on {
+  background: #b91c1c;
+  border: 0.5px solid #ef4444;
+  color: #fecaca;
+}
+
+/* ── Responsivo ── */
+
+@media (max-width: 480px) {
+  .habit-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .habit-name {
+    width: auto;
   }
 }
