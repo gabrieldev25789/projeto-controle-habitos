@@ -4,11 +4,13 @@
 ───────────────────────────────────────── */
 
 .body-wrap {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: 10px;
-  padding: 16px;
-  max-width: 480px;
+  padding: 24px;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 /* ── Cards ── */
@@ -65,7 +67,7 @@
 .habit-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .divider {
@@ -77,15 +79,13 @@
 
 .habit-row {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .habit-name {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--white);
-  width: 80px;
-  flex-shrink: 0;
 }
 
 /* ── Calendário ── */
@@ -94,7 +94,6 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
-  flex: 1;
 }
 
 .cal-header {
@@ -163,15 +162,16 @@
   color: #fecaca;
 }
 
-/* ── Responsivo ── */
+/* ── Section labels ── */
 
-@media (max-width: 480px) {
-  .habit-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .habit-name {
-    width: auto;
-  }
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 4px 0 2px;
+  grid-column: 1 / -1;
 }
+
+.section-label--good { color: var(--green); }
+.section-label--bad  { color: #ef4444; }
