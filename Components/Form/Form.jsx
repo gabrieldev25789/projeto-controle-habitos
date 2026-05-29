@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form() {
+function Form({ setUser }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -27,18 +26,9 @@ function Form() {
     alert("As senhas não condizem")
     return 
 }
-    setUser({username: username, email: email, password: password})
+    setUser({username, email, password})
     navigate('/cadastro')
   }
-
-  localStorage.setItem("user", JSON.stringify(user))
-
-  const usuarioSalvo = JSON.parse(localStorage.getItem("user"))
-
-  useEffect(()=>{
-  console.log(user)
-  console.log(usuarioSalvo)
-  },[user, usuarioSalvo])
 
   return (
     <div className="form-wrapper">
