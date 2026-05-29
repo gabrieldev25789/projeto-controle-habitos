@@ -4,7 +4,7 @@ import Header from "../Header/Header"
 import Body from "../Body/Body"
 import Modal from "../Modal/Modal"
 
-function Home() {
+function Home( {usuarioSalvo} ) {
   const [showModal, setShowModal] = useState(true)
 
   const [viciosSelecionados, setViciosSelecionados] = useState([])
@@ -19,7 +19,8 @@ function Home() {
       viciosSelecionados={viciosSelecionados}
       setViciosSelecionados={setViciosSelecionados}
       habitosSelecionados={habitosSelecionados}
-      setHabitosSelecionados={setHabitosSelecionados}/>
+      setHabitosSelecionados={setHabitosSelecionados} 
+      usuarioSalvo={usuarioSalvo}/>
       }
 
       <Body 

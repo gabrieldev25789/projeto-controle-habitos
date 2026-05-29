@@ -19,7 +19,7 @@
   ]
 }
 
-function Modal({onFinish, viciosSelecionados, setViciosSelecionados, habitosSelecionados, setHabitosSelecionados}){
+function Modal({onFinish, viciosSelecionados, setViciosSelecionados, habitosSelecionados, setHabitosSelecionados, usuarioSalvo}){
     const [passo, setPasso] = useState(1)
 
   function toggleVicio(val) {
@@ -33,7 +33,6 @@ function Modal({onFinish, viciosSelecionados, setViciosSelecionados, habitosSele
     setPasso(2)
   }
 
-
   function toggleHabitos(val){
     setHabitosSelecionados(prev => {
       if (!prev.includes(val) && prev.length >= 3) return prev
@@ -42,8 +41,21 @@ function Modal({onFinish, viciosSelecionados, setViciosSelecionados, habitosSele
   }
 
   function goHome(){
+    const dadosUser = {
+      user: usuarioSalvo, 
+      habitos: habitosSelecionados, 
+      vicios: viciosSelecionados 
+    }
+
+    localStorage.setItem("dadosUser", JSON.stringify(dadosUser))
     onFinish()
   }
+
+  console.log(usuarioSalvo)
+
+  const dadosUser = {user: usuarioSalvo, habitos: habitosSelecionados, vicios: viciosSelecionados} 
+
+  console.log(dadosUser)
   
   return (
     <>
