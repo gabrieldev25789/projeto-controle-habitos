@@ -26,15 +26,19 @@ function Form() {
     if(password !== confirmPassword){ 
     alert("As senhas não condizem")
     return 
-    
 }
     setUser({username: username, email: email, password: password})
     navigate('/cadastro')
   }
 
+  localStorage.setItem("user", JSON.stringify(user))
+
+  const usuarioSalvo = JSON.parse(localStorage.getItem("user"))
+
   useEffect(()=>{
-    console.log(user)
-  },[user])
+  console.log(user)
+  console.log(usuarioSalvo)
+  },[user, usuarioSalvo])
 
   return (
     <div className="form-wrapper">
