@@ -11,7 +11,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Form setUser={setUser} />} />
+      <Route path="/" element={<Form usuarioSalvo={user} setUser={setUser} />} />
       <Route path="/cadastro" element={<Home usuarioSalvo={user} />} />
     </Routes>
   )
