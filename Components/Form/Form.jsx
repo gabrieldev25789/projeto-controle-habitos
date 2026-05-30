@@ -28,9 +28,35 @@ function Form({ setUser }) {
       return
     }
 
-    setUser({ username, email, password })
+    const novoUser = { username, email, password }
+    setUser(novoUser)
+    localStorage.setItem("user", JSON.stringify(novoUser))
     navigate('/cadastro')
   }
+
+function entrarComUser() {
+  if (!email || !password) {
+    alert("Preencha todos os campos")
+    return
+  }
+
+  const saved = localStorage.getItem("user")
+
+  if (!saved) {
+    alert("Nenhuma conta encontrada")
+    return
+  }
+
+  const user = JSON.parse(saved)
+
+  if (email !== user.email || password !== user.password) {
+    alert("E-mail ou senha incorretos")
+    return
+  }
+
+  setUser(user)
+  navigate('/cadastro')
+}
 
   return (
     !entrar ? (
@@ -224,7 +250,7 @@ function Form({ setUser }) {
                 </div>
               </div>
 
-              <button type="button" className="submit-btn" onClick={addUser}>
+              <button type="button" className="submit-btn" onClick={() => entrarComUser()}>
                 <span className="btn-text">Entrar</span>
                 <span className="btn-arrow">→</span>
               </button>
