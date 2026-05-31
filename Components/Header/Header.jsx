@@ -1,30 +1,33 @@
+import { Link, useLocation } from "react-router-dom"
 import "./Header.css"
 
 function Header() {
+  const { pathname } = useLocation()
+
   return (
     <header className="header">
-      <a className="logo" href="/">
+      <Link className="logo" to="/">
         <div className="logo-icon">⬡</div>
         <span className="logo-name">habi<span>tus</span></span>
-      </a>
+      </Link>
 
       <nav className="header-nav">
-        <a className="nav-item active" href="/">
+        <Link className={`nav-item ${pathname === "/cadastro" ? "active" : ""}`} to="/cadastro">
           <i className="ti ti-home" />
           início
-        </a>
-        <a className="nav-item" href="/habitos">
+        </Link>
+        <Link className={`nav-item ${pathname === "/habitos" ? "active" : ""}`} to="/habitos">
           <i className="ti ti-checkbox" />
           hábitos
-        </a>
-        <a className="nav-item" href="/progresso">
+        </Link>
+        <Link className={`nav-item ${pathname === "/progresso" ? "active" : ""}`} to="/progresso">
           <i className="ti ti-chart-bar" />
           progresso
-        </a>
-        <a className="nav-item" href="/config">
+        </Link>
+        <Link className={`nav-item ${pathname === "/config" ? "active" : ""}`} to="/config">
           <i className="ti ti-settings" />
           config
-        </a>
+        </Link>
       </nav>
 
       <div className="header-right">
