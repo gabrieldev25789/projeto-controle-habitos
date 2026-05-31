@@ -1,43 +1,44 @@
-// Home.jsx
 import { useState } from "react"
 import Header from "../Header/Header"
 import Body from "../Body/Body"
 import Modal from "../Modal/Modal"
 
-function Home( {usuarioSalvo} ) {
+function Home({ usuarioSalvo, dadosUser, setDadosUser }) {
 
-  const [showModal, setShowModal] = useState(() => {
-  const dadosUser = localStorage.getItem("dadosUser")
-  const user = localStorage.getItem("user")
+    const [showModal, setShowModal] = useState(() => {
+    const emailAtivo = localStorage.getItem("sessao")
+    if (!emailAtivo) return true
 
-  if (!dadosUser || !user) return true // conta nova, mostra modal
+    const dadosSalvos = localStorage.getItem(`dadosUser-${emailAtivo}`)
+    if (!dadosSalvos) return true
 
-  const dados = JSON.parse(dadosUser)
-  const userAtual = JSON.parse(user)
+    const dados = JSON.parse(dadosSalvos)
+    if (!dados.user) return true
 
-  // se o email do usuário atual é diferente do que configurou os hábitos, mostra modal
-  return dados.user.email !== userAtual.email
-})
+    return dados.user.email !== emailAtivo
+  })
 
   const [viciosSelecionados, setViciosSelecionados] = useState([])
   const [habitosSelecionados, setHabitosSelecionados] = useState([])
-  
+
   return (
     <>
       <Header />
 
-      {showModal && <Modal 
-      onFinish={() => setShowModal(false)} 
-      viciosSelecionados={viciosSelecionados}
-      setViciosSelecionados={setViciosSelecionados}
-      habitosSelecionados={habitosSelecionados}
-      setHabitosSelecionados={setHabitosSelecionados} 
-      usuarioSalvo={usuarioSalvo}/>
-      }
+      {showModal && (
+        <Modal
+          onFinish={() => setShowModal(false)}
+          viciosSelecionados={viciosSelecionados}
+          setViciosSelecionados={setViciosSelecionados}
+          habitosSelecionados={habitosSelecionados}
+          setHabitosSelecionados={setHabitosSelecionados}
+          usuarioSalvo={usuarioSalvo}
+          dadosUser={dadosUser}
+          setDadosUser={setDadosUser}
+        />
+      )}
 
-      <Body 
-      habitosSelecionados={habitosSelecionados} 
-      viciosSelecionados={viciosSelecionados}/>
+      <Body dadosUser={dadosUser} />
     </>
   )
 }

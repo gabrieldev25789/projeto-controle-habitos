@@ -3,7 +3,7 @@ import "./Body.css"
 
 const DAYS_LABEL = ["D", "S", "T", "Q", "Q", "S", "S"]
 
-function HabitCalendar({ name, type }) {
+function HabitCalendar({ name, type, email }) {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
@@ -12,8 +12,7 @@ function HabitCalendar({ name, type }) {
   const firstDay = new Date(year, month, 1).getDay()
   const monthName = now.toLocaleString("pt-BR", { month: "long", year: "numeric" })
 
-
-const storageKey = `marked-${name}-${year}-${month}`
+const storageKey = `marked-${email}-${name}-${year}-${month}`
 
 const [marked, setMarked] = useState(() => {
   const saved = localStorage.getItem(storageKey)
@@ -71,28 +70,24 @@ function toggleDay(day) {
   )
 }
 
-function Body({ habitosSelecionados = [], viciosSelecionados = [] }) {
+function Body({ dadosUser = {} }) {
   return (
     <div className="body-wrap">
+      <h2>Bem vindo {dadosUser.user?.username}</h2>
 
-      {habitosSelecionados.length > 0 && (
-        <div className="section-label section-label--good">
-          🌱 hábitos bons
-        </div>
+      {dadosUser.habitos?.length > 0 && (
+        <div className="section-label section-label--good">🌱 hábitos bons</div>
       )}
-      {habitosSelecionados.map(h => (
-        <HabitCalendar key={h} name={h} type="good" />
+      {dadosUser.habitos?.map(h => (
+        <HabitCalendar key={h} name={h} type="good" email={dadosUser.user?.email} />
       ))}
 
-      {viciosSelecionados.length > 0 && (
-        <div className="section-label section-label--bad">
-          🔥 vícios
-        </div>
+      {dadosUser.vicios?.length > 0 && (
+        <div className="section-label section-label--bad">🔥 vícios</div>
       )}
-      {viciosSelecionados.map(v => (
-        <HabitCalendar key={v} name={v} type="bad" />
+      {dadosUser.vicios?.map(v => (
+        <HabitCalendar key={v} name={v} type="bad" email={dadosUser.user?.email} />
       ))}
-
     </div>
   )
 }
