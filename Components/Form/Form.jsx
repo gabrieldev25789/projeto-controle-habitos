@@ -29,9 +29,16 @@ function Form({ setUser }) {
     }
 
     const novoUser = { username, email, password }
-    setUser(novoUser)
-    localStorage.setItem("user", JSON.stringify(novoUser))
-    navigate('/cadastro')
+
+    const existente = localStorage.getItem(`user-${email}`)
+    if(existente) {
+    alert("Este e-mail já está cadastrado")
+    return
+  }
+
+  localStorage.setItem(`user-${email}`, JSON.stringify(novoUser))
+  setUser(novoUser)
+  navigate('/cadastro')
   }
 
 function entrarComUser() {
@@ -40,7 +47,7 @@ function entrarComUser() {
     return
   }
 
-  const saved = localStorage.getItem("user")
+  const saved = localStorage.getItem(`user-${email}`)
 
   if (!saved) {
     alert("Nenhuma conta encontrada")
@@ -49,8 +56,8 @@ function entrarComUser() {
 
   const user = JSON.parse(saved)
 
-  if (email !== user.email || password !== user.password) {
-    alert("E-mail ou senha incorretos")
+  if (password !== user.password) {
+    alert("Senha incorreta")
     return
   }
 
