@@ -1,8 +1,10 @@
 import "./Habitos.css"
 
-function Habitos({ dadosUser }) {
+function Habitos({ dadosUser, diaEscolhido }) {
   const habitos = dadosUser.habitos
   const vicios = dadosUser.vicios
+
+  console.log(diaEscolhido)
 
   return (
     <div className="habitos-wrap">
