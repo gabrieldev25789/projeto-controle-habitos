@@ -6,6 +6,12 @@ import Habitos from './Components/Habitos/Habitos';
 
 
 function App() {
+const [diaEscolhido, setDiaEscolhido] = useState([])
+
+function handleDiaEscolhido(escolha) {
+  setDiaEscolhido(prev => [...prev, escolha])
+}
+
   const [user, setUser] = useState(() => {
   const emailAtivo = localStorage.getItem("sessao")
   if (!emailAtivo) return {}
@@ -30,8 +36,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Form setUser={handleSetUser} />} />
-      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} />}/>
-      <Route path="/habitos" element={<Habitos dadosUser={dadosUser}/>} />
+      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} onDiaEscolhido={handleDiaEscolhido}/>}/>
+      <Route path="/habitos" element={<Habitos dadosUser={dadosUser} diaEscolhido={diaEscolhido}/>} />
     </Routes>
   )
 }
