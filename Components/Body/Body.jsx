@@ -3,7 +3,7 @@ import "./Body.css"
 
 const DAYS_LABEL = ["D", "S", "T", "Q", "Q", "S", "S"]
 
-function HabitCalendar({ name, type, email }) {
+function HabitCalendar({ name, type, email, onDiaEscolhido }) {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
@@ -12,21 +12,22 @@ function HabitCalendar({ name, type, email }) {
   const firstDay = new Date(year, month, 1).getDay()
   const monthName = now.toLocaleString("pt-BR", { month: "long", year: "numeric" })
 
-const storageKey = `marked-${email}-${name}-${year}-${month}`
+  const storageKey = `marked-${email}-${name}-${year}-${month}`
 
-const [marked, setMarked] = useState(() => {
-  const saved = localStorage.getItem(storageKey)
-  return saved ? JSON.parse(saved) : {}
-})
-
-function toggleDay(day) {
-  if (day > today) return
-  setMarked(prev => {
-    const next = { ...prev, [day]: !prev[day] }
-    localStorage.setItem(storageKey, JSON.stringify(next))
-    return next
+  const [marked, setMarked] = useState(() => {
+    const saved = localStorage.getItem(storageKey)
+    return saved ? JSON.parse(saved) : {}
   })
-}
+
+  function toggleDay(day) {
+    if (day > today) return
+    setMarked(prev => {
+      const next = { ...prev, [day]: !prev[day] }
+      localStorage.setItem(storageKey, JSON.stringify(next))
+      return next
+    })
+    onDiaEscolhido?.({ dia: day, [type === "good" ? "habito" : "vicio"]: name })
+  }
 
   const blanks = Array(firstDay).fill(null)
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
@@ -70,7 +71,7 @@ function toggleDay(day) {
   )
 }
 
-function Body({ dadosUser = {} }) {
+function Body({ dadosUser = {}, onDiaEscolhido }) {
   return (
     <div className="body-wrap">
       <h2>Bem vindo {dadosUser.user?.username}</h2>
@@ -79,14 +80,26 @@ function Body({ dadosUser = {} }) {
         <div className="section-label section-label--good">🌱 hábitos bons</div>
       )}
       {dadosUser.habitos?.map(h => (
-        <HabitCalendar key={h} name={h} type="good" email={dadosUser.user?.email} />
+        <HabitCalendar
+          key={h}
+          name={h}
+          type="good"
+          email={dadosUser.user?.email}
+          onDiaEscolhido={onDiaEscolhido}
+        />
       ))}
 
       {dadosUser.vicios?.length > 0 && (
         <div className="section-label section-label--bad">🔥 vícios</div>
       )}
       {dadosUser.vicios?.map(v => (
-        <HabitCalendar key={v} name={v} type="bad" email={dadosUser.user?.email} />
+        <HabitCalendar
+          key={v}
+          name={v}
+          type="bad"
+          email={dadosUser.user?.email}
+          onDiaEscolhido={onDiaEscolhido}
+        />
       ))}
     </div>
   )
