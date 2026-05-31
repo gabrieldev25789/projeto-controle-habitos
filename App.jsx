@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react';
 import Form from './Components/Form/Form'
 import Home from './Components/Home/Home'
+import Habitos from './Components/Habitos/Habitos';
 
 
 function App() {
@@ -29,7 +30,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Form setUser={handleSetUser} />} />
-      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} />} />
+      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} />}/>
+      <Route path="/habitos" element={<Habitos dadosUser={dadosUser}/>} />
     </Routes>
   )
 }
