@@ -1,10 +1,10 @@
 import "./Habitos.css"
 
-function Habitos({ dadosUser, diaEscolhido }) {
+function Habitos({ dadosUser, diasEscolhidos }) {
   const habitos = dadosUser.habitos
   const vicios = dadosUser.vicios
 
-  console.log(diaEscolhido)
+  console.log(diasEscolhidos)
 
   return (
     <div className="habitos-wrap">
@@ -21,6 +21,11 @@ function Habitos({ dadosUser, diaEscolhido }) {
           {vicios.map(v => <li key={v}>{v}</li>)}
         </ul>
       </div>
+      <ul>
+        {diasEscolhidos.map((dia)=>(
+          <li>{dia.dia}</li>
+        ))}
+      </ul>
     </div>
   )
 }
