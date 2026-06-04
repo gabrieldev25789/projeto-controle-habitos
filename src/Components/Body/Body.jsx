@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./Body.css"
 
 const DAYS_LABEL = ["D", "S", "T", "Q", "Q", "S", "S"]
@@ -19,6 +19,7 @@ function HabitCalendar({ name, type, email, onDiaEscolhido }) {
     return saved ? JSON.parse(saved) : {}
   })
 
+
   function toggleDay(day) {
     if (day > today) return
     setMarked(prev => {
@@ -28,6 +29,7 @@ function HabitCalendar({ name, type, email, onDiaEscolhido }) {
     })
     onDiaEscolhido?.({ dia: day, [type === "good" ? "habito" : "vicio"]: name })
   }
+
 
   const blanks = Array(firstDay).fill(null)
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1)
@@ -71,7 +73,18 @@ function HabitCalendar({ name, type, email, onDiaEscolhido }) {
   )
 }
 
-function Body({ dadosUser = {}, onDiaEscolhido }) {
+function Body({ dadosUser = {}, onDiaEscolhido, diasEscolhidos, setDiasEscolhidos }) {
+
+
+  function handleDiaEscolhido(info) {
+      setDiasEscolhidos(prev => [...prev, info])
+      onDiaEscolhido?.(info) // repassa pro pai se precisar
+    }
+
+    useEffect(() => {
+      console.log(diasEscolhidos)
+    }, [diasEscolhidos])
+
   return (
     <div className="body-wrap">
       <h2>Bem vindo {dadosUser.user?.username}</h2>
@@ -85,7 +98,7 @@ function Body({ dadosUser = {}, onDiaEscolhido }) {
           name={h}
           type="good"
           email={dadosUser.user?.email}
-          onDiaEscolhido={onDiaEscolhido}
+          onDiaEscolhido={handleDiaEscolhido}
         />
       ))}
 
@@ -98,7 +111,7 @@ function Body({ dadosUser = {}, onDiaEscolhido }) {
           name={v}
           type="bad"
           email={dadosUser.user?.email}
-          onDiaEscolhido={onDiaEscolhido}
+          onDiaEscolhido={handleDiaEscolhido}
         />
       ))}
     </div>
