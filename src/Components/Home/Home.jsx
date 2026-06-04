@@ -3,7 +3,7 @@ import Header from "../Header/Header"
 import Body from "../Body/Body"
 import Modal from "../Modal/Modal"
 
-function Home({ usuarioSalvo, dadosUser, setDadosUser, onDiaEscolhido }) {
+function Home({ usuarioSalvo, dadosUser, setDadosUser, onDiaEscolhido, diasEscolhidos, setDiasEscolhidos }) {
 
     const [showModal, setShowModal] = useState(() => {
     const emailAtivo = localStorage.getItem("sessao")
@@ -37,7 +37,7 @@ function Home({ usuarioSalvo, dadosUser, setDadosUser, onDiaEscolhido }) {
           setDadosUser={setDadosUser}
         />
       )}
-      <Body dadosUser={dadosUser} onDiaEscolhido={onDiaEscolhido}/>
+      <Body dadosUser={dadosUser} onDiaEscolhido={onDiaEscolhido} diasEscolhidos={diasEscolhidos} setDiasEscolhidos={setDiasEscolhidos}/>
     </>
   )
 }
