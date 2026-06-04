@@ -6,7 +6,11 @@ import Habitos from './Components/Habitos/Habitos';
 
 
 function App() {
-const [diaEscolhido, setDiaEscolhido] = useState([])
+  const [diaEscolhido, setDiaEscolhido] = useState([])
+  console.log(diaEscolhido)
+
+  const [diasEscolhidos, setDiasEscolhidos] = useState([])
+
 
 function handleDiaEscolhido(escolha) {
   setDiaEscolhido(prev => [...prev, escolha])
@@ -36,8 +40,8 @@ function handleDiaEscolhido(escolha) {
   return (
     <Routes>
       <Route path="/" element={<Form setUser={handleSetUser} />} />
-      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} onDiaEscolhido={handleDiaEscolhido}/>}/>
-      <Route path="/habitos" element={<Habitos dadosUser={dadosUser} diaEscolhido={diaEscolhido}/>} />
+      <Route path="/cadastro" element={<Home usuarioSalvo={user} dadosUser={dadosUser} setDadosUser={setDadosUser} onDiaEscolhido={handleDiaEscolhido} diasEscolhidos={diasEscolhidos} setDiasEscolhidos={setDiasEscolhidos}/>}/>
+      <Route path="/habitos" element={<Habitos dadosUser={dadosUser} diasEscolhidos={diasEscolhidos}/>} />
     </Routes>
   )
 }
