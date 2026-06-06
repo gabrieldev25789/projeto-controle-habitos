@@ -8,6 +8,24 @@ function Form() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [entrar, setEntrar] = useState(false)
 
+  function addUser(){
+
+    if(!username || !email || !password) return 
+
+    const user = {
+      nome: username, 
+      email: email,
+      senha: password
+    }
+
+  localStorage.setItem("user", JSON.stringify(user))
+
+  const getUser = JSON.parse(localStorage.getItem("user"))
+
+    console.log(user)
+    console.log(getUser)
+  }
+
   return (
     !entrar ? (
       <div className="form-wrapper">
@@ -129,6 +147,8 @@ function Form() {
               */}
 
             </form>
+                <button onClick={() => addUser()}>Teste</button>
+
 
             <p className="form-footer">
               Já tem uma conta?{" "}
