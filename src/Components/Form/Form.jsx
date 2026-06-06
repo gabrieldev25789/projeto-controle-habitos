@@ -1,69 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form({ setUser }) {
+function Form() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [entrar, setEntrar] = useState(false)
-
-  const navigate = useNavigate();
-
-  function addUser() {
-    if (!username || !email || !password || !confirmPassword) {
-      alert("Preencha todos os campos")
-      return
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      alert("E-mail inválido")
-      return
-    }
-
-    if (password !== confirmPassword) {
-      alert("As senhas não condizem")
-      return
-    }
-
-    const novoUser = { username, email, password }
-
-    const existente = localStorage.getItem(`user-${email}`)
-    if(existente) {
-    alert("Este e-mail já está cadastrado")
-    return
-  }
-
-  localStorage.setItem(`user-${email}`, JSON.stringify(novoUser))
-  setUser(novoUser)
-  navigate('/cadastro')
-  }
-
-function entrarComUser() {
-  if (!email || !password) {
-    alert("Preencha todos os campos")
-    return
-  }
-
-  const saved = localStorage.getItem(`user-${email}`)
-
-  if (!saved) {
-    alert("Nenhuma conta encontrada")
-    return
-  }
-
-  const user = JSON.parse(saved)
-
-  if (password !== user.password) {
-    alert("Senha incorreta")
-    return
-  }
-
-  setUser(user)
-  navigate('/cadastro')
-}
 
   return (
     !entrar ? (
@@ -178,10 +121,12 @@ function entrarComUser() {
                 </div>
               </div>
 
+              {/* 
               <button type="button" className="submit-btn" onClick={addUser}>
                 <span className="btn-text">Criar conta</span>
                 <span className="btn-arrow">→</span>
               </button>
+              */}
 
             </form>
 
@@ -257,10 +202,12 @@ function entrarComUser() {
                 </div>
               </div>
 
+              {/* 
               <button type="button" className="submit-btn" onClick={() => entrarComUser()}>
                 <span className="btn-text">Entrar</span>
                 <span className="btn-arrow">→</span>
               </button>
+              */}
 
             </form>
 
