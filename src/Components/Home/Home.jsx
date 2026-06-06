@@ -1,7 +1,13 @@
-function Home() {
+function Home({ email }) {
+
+  const salvo = JSON.parse(localStorage.getItem(`user-${email}`))
+
+  if(!salvo) return <p>Carregando...</p>
 
   return (
-   <h2>Home</h2>
+    <>
+      <h2>Bem vindo {salvo.nome}</h2>
+    </>
   )
 
 }
