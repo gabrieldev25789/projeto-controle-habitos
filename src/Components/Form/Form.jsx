@@ -8,22 +8,30 @@ function Form() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [entrar, setEntrar] = useState(false)
 
-  function addUser(){
+  function addUser() {
+    if (!username || !email || !password) return
 
-    if(!username || !email || !password) return 
+    // 1. lê antes de salvar
+    const existente = JSON.parse(localStorage.getItem(`user-${email}`))
 
-    const user = {
-      nome: username, 
-      email: email,
-      senha: password
+    // 2. checa se já existe
+    if (existente?.nome === username) {
+      alert("Já existe um user com esse nome")
+      return
     }
 
-  localStorage.setItem("user", JSON.stringify(user))
+    if (existente?.email === email) {
+      alert("Esse email já foi cadastrado")
+      return
+    }
 
-  const getUser = JSON.parse(localStorage.getItem("user"))
-
+    // 3. só agora salva
+    const user = { nome: username, email: email, senha: password }
+    localStorage.setItem(`user-${email}`, JSON.stringify(user))
     console.log(user)
-    console.log(getUser)
+
+   const setters = [setUsername, setEmail, setPassword, setConfirmPassword]
+   setters.forEach((set)=> set(""))
   }
 
   return (
