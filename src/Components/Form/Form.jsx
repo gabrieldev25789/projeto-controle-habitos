@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
 function Form() {
@@ -8,8 +9,15 @@ function Form() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [entrar, setEntrar] = useState(false)
 
+const navigate = useNavigate()
+
   function addUser() {
     if (!username || !email || !password) return
+
+    if(password !== confirmPassword) {
+      alert("As senhas não condizem")
+      return 
+    }
 
     // 1. lê antes de salvar
     const existente = JSON.parse(localStorage.getItem(`user-${email}`))
@@ -30,9 +38,31 @@ function Form() {
     localStorage.setItem(`user-${email}`, JSON.stringify(user))
     console.log(user)
 
+
    const setters = [setUsername, setEmail, setPassword, setConfirmPassword]
    setters.forEach((set)=> set(""))
   }
+
+    function entrarComUser() {
+      if (!email || !password) {
+        alert("Preencha todos os campos")
+        return
+      }
+
+      const existeUser = JSON.parse(localStorage.getItem(`user-${email}`))
+
+      if (!existeUser) {
+        alert("User não encontrado")
+        return
+      }
+
+      if (existeUser.senha !== password) {
+        alert("Senha incorreta")
+        return
+      }
+
+      navigate("/Home")
+    }
 
   return (
     !entrar ? (
@@ -238,6 +268,8 @@ function Form() {
               */}
 
             </form>
+                <button onClick={() => entrarComUser()} >Teste 2</button>
+
 
             <p className="form-footer">
               Não tem conta?{" "}
