@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form() {
+function Form( { setDadoUser, email, setEmail } ) {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [entrar, setEntrar] = useState(false)
@@ -61,6 +60,8 @@ const navigate = useNavigate()
         return
       }
 
+      localStorage.setItem("sessao", email)
+      setDadoUser(existeUser)
       navigate("/Home")
     }
 
