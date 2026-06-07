@@ -8,27 +8,30 @@ import { useState } from "react"
 function App() {
   const [modalAberto, setModalAberto] = useState(false)
 
-    const [dadoUser, setDadoUser] = useState(()=>{
-    const emailAtivo = localStorage.getItem("sessao")
-    if(!emailAtivo) return null 
-    return JSON.parse(localStorage.getItem(`user-${emailAtivo}`))
+  const [dadoUser, setDadoUser] = useState(() => {
+    const id = localStorage.getItem("sessao")
+    if (!id) return null
+    return JSON.parse(localStorage.getItem(`user-${id}`))
   })
 
   const [email, setEmail] = useState(() => {
-    return localStorage.getItem("sessao") || ""
+    const id = localStorage.getItem("sessao")
+    if (!id) return ""
+    const user = JSON.parse(localStorage.getItem(`user-${id}`))
+    return user?.email || ""
   })
 
-const [habitosSelecionados, setHabitosSelecionados] = useState([])
+  const [habitosSelecionados, setHabitosSelecionados] = useState([])
 
-function toggleHabito(habit) {
-  setHabitosSelecionados(prev =>
-    prev.find(h => h.val === habit.val)
-      ? prev.filter(h => h.val !== habit.val)
-      : [...prev, habit]
-  )
-} 
+  function toggleHabito(habit) {
+    setHabitosSelecionados(prev =>
+      prev.find(h => h.val === habit.val)
+        ? prev.filter(h => h.val !== habit.val)
+        : [...prev, habit]
+    )
+  }
 
-   return (
+  return (
     <Routes>
       <Route path="/" element={<Form setDadoUser={setDadoUser} email={email} setEmail={setEmail}/>} />
       <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto} habitosSelecionados={habitosSelecionados} toggleHabito={toggleHabito}/>} />
