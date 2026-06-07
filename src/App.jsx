@@ -6,6 +6,7 @@ import { useState } from "react"
 
 
 function App() {
+  const [modalAberto, setModalAberto] = useState(false)
 
     const [dadoUser, setDadoUser] = useState(()=>{
     const emailAtivo = localStorage.getItem("sessao")
@@ -20,7 +21,7 @@ function App() {
    return (
     <Routes>
       <Route path="/" element={<Form setDadoUser={setDadoUser} email={email} setEmail={setEmail}/>} />
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email}/>} />
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto}/>} />
     </Routes>
   )
 }
