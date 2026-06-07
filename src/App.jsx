@@ -18,10 +18,20 @@ function App() {
     return localStorage.getItem("sessao") || ""
   })
 
+const [habitosSelecionados, setHabitosSelecionados] = useState([])
+
+function toggleHabito(habit) {
+  setHabitosSelecionados(prev =>
+    prev.find(h => h.val === habit.val)
+      ? prev.filter(h => h.val !== habit.val)
+      : [...prev, habit]
+  )
+} 
+
    return (
     <Routes>
       <Route path="/" element={<Form setDadoUser={setDadoUser} email={email} setEmail={setEmail}/>} />
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto}/>} />
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto} habitosSelecionados={habitosSelecionados} toggleHabito={toggleHabito}/>} />
     </Routes>
   )
 }
