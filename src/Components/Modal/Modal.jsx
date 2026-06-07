@@ -1,26 +1,7 @@
- import { useState } from "react"
+import { useState } from "react"
 import "./Modal.css"
 
- const HABITS = {
-  bad: [ 
-  { label: "redes sociais", val: "redes sociais" },
-  { label: "fumar",         val: "fumar" },
-  { label: "álcool",        val: "álcool" },
-  { label: "procrastinar",  val: "procrastinar" },
-  { label: "junk food",     val: "junk-food" },
-  { label: "pornografia",   val: "pornografia" }
-  ],
-
-  good: [ 
-  { label: "exercitar",     val: "exercitar" },
-  { label: "leitura",       val: "leitura" },
-  { label: "meditar",       val: "meditar" },
-  { label: "estudar",       val: "estudar" }
-  ]
-}
-
-function Modal({ setModalAberto }){
-  const [habitosSelecionados, setHabitosSelecionados] = useState([])
+function Modal({ setModalAberto, HABITS, habitosSelecionados, toggleHabito }){
   const [passo2, setPasso2] = useState(false)
 
   function continuar(){
@@ -31,12 +12,6 @@ function Modal({ setModalAberto }){
     setModalAberto(false)
   }
 
-  function toggleHabito(val){
-    setHabitosSelecionados(prev => 
-      prev.includes(val) ? prev.filter(h => h !== val) : [...prev, val]
-    )
-  } 
-    
 return (
   <>
     {!passo2 &&
@@ -63,10 +38,10 @@ return (
               <button 
                   key={bad.val} 
                   type="button" 
-                  className={`chip chip--bad ${habitosSelecionados.includes(bad.val) ? "chip--selected" : ""}`}
-                  onClick={() => toggleHabito(bad.val)}
+                  className={`chip chip--bad ${habitosSelecionados.find(h => h.val === bad.val) ? "chip--selected" : ""}`}
+                  onClick={() => toggleHabito(bad)}
                   >
-                  {habitosSelecionados.includes(bad.val) && <span className="chip-check">✓</span>}
+                  {habitosSelecionados.find(h => h.val === bad.val) && <span className="chip-check">✓</span>}
                   {bad.label}
               </button>
 
@@ -119,10 +94,10 @@ return (
                 <button 
                   key={good.val} 
                   type="button" 
-                  className={`chip chip--good ${habitosSelecionados.includes(good.val) ? "chip--selected" : ""}`}
-                  onClick={() => toggleHabito(good.val)}
+                    className={`chip chip--good ${habitosSelecionados.find(h => h.val === good.val) ? "chip--selected" : ""}`}
+                  onClick={() => toggleHabito(good)}
                   >
-                  {habitosSelecionados.includes(good.val) && <span className="chip-check">✓</span>}
+                  {habitosSelecionados.find(h => h.val === good.val) && <span className="chip-check">✓</span>}
                   {good.label}
                 </button>
 
