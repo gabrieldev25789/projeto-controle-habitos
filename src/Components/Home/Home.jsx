@@ -1,10 +1,7 @@
-import { useState } from "react"
 import Header from "../Header/Header.jsx"
 import Modal from "../Modal/Modal.jsx"
 
-function Home({ email }) {
-
-  const [modalAberto, setModalAberto] = useState(false)
+function Home({ email, modalAberto, setModalAberto }) {
 
   const salvo = JSON.parse(localStorage.getItem(`user-${email}`))
 
@@ -22,7 +19,9 @@ function Home({ email }) {
 
       <button onClick={() => abreModal()}>AAAAAAAA</button>
 
-      {modalAberto && <Modal />}
+      {modalAberto && <Modal 
+      modalAberto={modalAberto} 
+      setModalAberto={setModalAberto}/>}
     </>
   )
 
