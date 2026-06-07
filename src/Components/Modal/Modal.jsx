@@ -19,13 +19,17 @@ import "./Modal.css"
   ]
 }
 
-function Modal(){
+function Modal({ setModalAberto }){
   console.log(HABITS)
 
   const [passo2, setPasso2] = useState(false)
 
   function continuar(){
     setPasso2(true)
+  }
+
+  function irPainel(){
+    setModalAberto(false)
   }
     
 return (
@@ -49,11 +53,9 @@ return (
 
             <p className="chips-label">sugestões</p>
             <div className="chips">
-              <button type="button" className="chip chip--bad">álcool</button>
-              <button type="button" className="chip chip--bad chip--selected">
-                <span className="chip-check">✓</span> cigarro
-              </button>
-              <button type="button" className="chip chip--bad">redes sociais</button>
+              {HABITS.bad.map((bad)=>(
+                <button key={bad.val} type="button" className="chip chip--bad">{bad.label}</button>
+              ))}
             </div>
 
             <div className="custom-row">
@@ -97,11 +99,9 @@ return (
 
             <p className="chips-label">sugestões</p>
             <div className="chips">
-              <button type="button" className="chip chip--good">exercício</button>
-              <button type="button" className="chip chip--good chip--selected">
-                <span className="chip-check">✓</span> leitura
-              </button>
-              <button type="button" className="chip chip--good">meditação</button>
+              {HABITS.good.map((good)=>(
+                <button key={good.val} type="button" className="chip chip--good">{good.label}</button>
+              ))}
             </div>
 
             <div className="custom-row">
@@ -119,7 +119,7 @@ return (
             <div className="footer-left">
               <button type="button" className="btn-skip">pular</button>
             </div>
-            <button type="button" className="btn-next">ir pro painel →</button>
+            <button type="button" className="btn-next" onClick={() => irPainel()}>ir pro painel →</button>
           </div>
 
         </div>
