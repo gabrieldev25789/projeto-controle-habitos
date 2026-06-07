@@ -1,3 +1,5 @@
+import Header from "../Header/Header.jsx"
+
 function Home({ email }) {
 
   const salvo = JSON.parse(localStorage.getItem(`user-${email}`))
@@ -6,6 +8,7 @@ function Home({ email }) {
 
   return (
     <>
+      <Header />
       <h2>Bem vindo {salvo.nome}</h2>
     </>
   )
