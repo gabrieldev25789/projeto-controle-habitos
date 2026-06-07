@@ -20,8 +20,7 @@ import "./Modal.css"
 }
 
 function Modal({ setModalAberto }){
-  console.log(HABITS)
-
+  const [habitosSelecionados, setHabitosSelecionados] = useState([])
   const [passo2, setPasso2] = useState(false)
 
   function continuar(){
@@ -31,6 +30,12 @@ function Modal({ setModalAberto }){
   function irPainel(){
     setModalAberto(false)
   }
+
+  function toggleHabito(val){
+    setHabitosSelecionados(prev => 
+      prev.includes(val) ? prev.filter(h => h !== val) : [...prev, val]
+    )
+  } 
     
 return (
   <>
@@ -54,7 +59,17 @@ return (
             <p className="chips-label">sugestões</p>
             <div className="chips">
               {HABITS.bad.map((bad)=>(
-                <button key={bad.val} type="button" className="chip chip--bad">{bad.label}</button>
+
+              <button 
+                  key={bad.val} 
+                  type="button" 
+                  className={`chip chip--bad ${habitosSelecionados.includes(bad.val) ? "chip--selected" : ""}`}
+                  onClick={() => toggleHabito(bad.val)}
+                  >
+                  {habitosSelecionados.includes(bad.val) && <span className="chip-check">✓</span>}
+                  {bad.label}
+              </button>
+
               ))}
             </div>
 
@@ -100,7 +115,17 @@ return (
             <p className="chips-label">sugestões</p>
             <div className="chips">
               {HABITS.good.map((good)=>(
-                <button key={good.val} type="button" className="chip chip--good">{good.label}</button>
+
+                <button 
+                  key={good.val} 
+                  type="button" 
+                  className={`chip chip--good ${habitosSelecionados.includes(good.val) ? "chip--selected" : ""}`}
+                  onClick={() => toggleHabito(good.val)}
+                  >
+                  {habitosSelecionados.includes(good.val) && <span className="chip-check">✓</span>}
+                  {good.label}
+                </button>
+
               ))}
             </div>
 
