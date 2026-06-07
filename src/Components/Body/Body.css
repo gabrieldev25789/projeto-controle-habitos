@@ -142,6 +142,18 @@
   font-weight: 500;
 }
 
+.cal-day--marked-good {
+  background: #0F2E1E;
+  color: #5DCAA5;
+  font-weight: 500;
+}
+
+.cal-day--marked-bad {
+  background: #2E1008;
+  color: #F0997B;
+  font-weight: 500;
+}
+
 /* ── footer ── */
 .card-footer {
   display: flex;
