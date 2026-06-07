@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
@@ -33,16 +33,33 @@ const navigate = useNavigate()
     }
 
     // 3. só agora salva
-    const user = { nome: username, email: email, senha: password }
-    localStorage.setItem(`user-${email}`, JSON.stringify(user))
-    console.log(user)
+    const id = crypto.randomUUID()
+    const user = {id, nome: username, email: email, senha: password }
+    localStorage.setItem(`user-${id}`, JSON.stringify(user))
+    localStorage.setItem("sessao", id)
+    setDadoUser(user)
 
-
-   const setters = [setUsername, setEmail, setPassword, setConfirmPassword]
-   setters.forEach((set)=> set(""))
+    alert("Conta criada")  
+    navigate("/Home")  
+    
+    const setters = [setUsername, setPassword, setConfirmPassword]
+    setters.forEach((set)=> set(""))
+    setEmail("")
   }
 
+  useEffect(() => {
+  localStorage.removeItem("sessao")
+  setEmail("")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
     function entrarComUser() {
+
+    const usuario = Object.keys(localStorage)
+    .filter(key => key.startsWith("user-"))
+    .map(key => JSON.parse(localStorage.getItem(key)))
+    .find(u => u.email === email)
+
       if (!email || !password) {
         alert("Preencha todos os campos")
         return
@@ -60,9 +77,10 @@ const navigate = useNavigate()
         return
       }
 
-      localStorage.setItem("sessao", email)
-      setDadoUser(existeUser)
+      localStorage.setItem("sessao", usuario.id)
+      setDadoUser(usuario)
       navigate("/Home")
+      setEmail("")
     }
 
   return (
@@ -178,20 +196,18 @@ const navigate = useNavigate()
                 </div>
               </div>
 
-              {/* 
+              
               <button type="button" className="submit-btn" onClick={addUser}>
                 <span className="btn-text">Criar conta</span>
                 <span className="btn-arrow">→</span>
               </button>
-              */}
+              
 
             </form>
-                <button onClick={() => addUser()}>Teste</button>
-
 
             <p className="form-footer">
               Já tem uma conta?{" "}
-              <a href="#" className="form-link" onClick={() => setEntrar(true)}>
+              <a href="#" className="form-link" onClick={() => {setEntrar(true); setEmail("")}}>
                 Entrar
               </a>
             </p>
@@ -261,16 +277,14 @@ const navigate = useNavigate()
                 </div>
               </div>
 
-              {/* 
+              
               <button type="button" className="submit-btn" onClick={() => entrarComUser()}>
                 <span className="btn-text">Entrar</span>
                 <span className="btn-arrow">→</span>
               </button>
-              */}
+              
 
             </form>
-                <button onClick={() => entrarComUser()} >Teste 2</button>
-
 
             <p className="form-footer">
               Não tem conta?{" "}
