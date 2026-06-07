@@ -19,9 +19,9 @@ const HABITS = {
   ],
 }
 
-function Home({ email, modalAberto, setModalAberto, habitosSelecionados, toggleHabito }) {
+function Home({dadoUser, modalAberto, setModalAberto, habitosSelecionados, toggleHabito }) {
 
-  const salvo = JSON.parse(localStorage.getItem(`user-${email}`))
+  const salvo = dadoUser
 
   if(!salvo) return <p>Carregando...</p>
 
