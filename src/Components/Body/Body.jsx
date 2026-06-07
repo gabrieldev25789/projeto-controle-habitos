@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./Body.css"
 
 function Body({ habitosSelecionados }) {
@@ -10,6 +11,24 @@ function Body({ habitosSelecionados }) {
   const diasNoMes = new Date(ano, mes + 1, 0).getDate()
 
   const DIAS_SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"]
+
+const [diasPorHabito, setDiasPorHabito] = useState({})
+
+function selectDia(habitoVal, dia) {
+    const dataDia = new Date(ano, mes, dia)
+
+    if(dataDia > hoje) return 
+
+    setDiasPorHabito(prev => {
+        const atual = prev[habitoVal] || []
+        return {
+        ...prev,
+        [habitoVal]: atual.includes(dia)
+            ? atual.filter(d => d !== dia)
+            : [...atual, dia]
+        }
+    })
+}
 
   return (
     <div className="body">
@@ -43,16 +62,25 @@ function Body({ habitosSelecionados }) {
               const dia = i + 1
               const isHoje = dia === hoje.getDate()
               return (
-                <div key={dia} className={`cal-day ${isHoje ? "cal-day--today" : ""}`}>
-                  {dia}
-                </div>
-              )
+                
+            <div
+                key={dia}
+                className={`cal-day 
+                ${isHoje ? "cal-day--today" : ""} 
+                ${(diasPorHabito[habito.val] || []).includes(dia) ? `cal-day--marked-${habito.tipo}` : ""}`}
+                onClick={() => selectDia(habito.val, dia)}
+                >
+                {dia}
+            </div>
+            )
             })}
           </div>
 
           <div className="card-footer">
             <span className="streak-label">sequência atual</span>
-            <span className="streak-num">— dias</span>
+           
+            <span className="streak-num">{(diasPorHabito[habito.val] || []).length} dias</span>
+            
           </div>
 
         </div>
