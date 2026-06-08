@@ -21,20 +21,28 @@ function App() {
     return user?.email || ""
   })
 
-  const [habitosSelecionados, setHabitosSelecionados] = useState([])
-
-  function toggleHabito(habit) {
-    setHabitosSelecionados(prev =>
-      prev.find(h => h.val === habit.val)
-        ? prev.filter(h => h.val !== habit.val)
-        : [...prev, habit]
-    )
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <Routes>
-      <Route path="/" element={<Form setDadoUser={setDadoUser} email={email} setEmail={setEmail}/>} />
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto} habitosSelecionados={habitosSelecionados} toggleHabito={toggleHabito}/>} />
+      <Route path="/" element={<Form
+        setDadoUser={setDadoUser}
+        email={email}
+        setEmail={setEmail}
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+      />} />
+      <Route path="/Home" element={<Home
+        dadoUser={dadoUser}
+        modalAberto={modalAberto}
+        setModalAberto={setModalAberto}
+      />} />
     </Routes>
   )
 }
