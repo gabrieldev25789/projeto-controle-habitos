@@ -20,17 +20,34 @@ const HABITS = {
   ],
 }
 
-function Home({ dadoUser, modalAberto, setModalAberto, habitosSelecionados, toggleHabito }) {
-  // lógica de calendário fica aqui e desce via props pro Body
+function Home({ dadoUser, modalAberto, setModalAberto }) {
   const hoje = new Date()
   const ano  = hoje.getFullYear()
   const mes  = hoje.getMonth()
 
-  const nomeMes    = hoje.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
+  const nomeMes     = hoje.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
   const primeiroDia = new Date(ano, mes, 1).getDay()
-  const diasNoMes  = new Date(ano, mes + 1, 0).getDate()
+  const diasNoMes   = new Date(ano, mes + 1, 0).getDate()
 
-  const [diasPorHabito, setDiasPorHabito] = useState({})
+  const [habitosSelecionados, setHabitosSelecionados] = useState(() => {
+    const salvo = localStorage.getItem(`habitos-${dadoUser.id}`)
+    return salvo ? JSON.parse(salvo) : []
+  })
+
+  const [diasPorHabito, setDiasPorHabito] = useState(() => {
+    const salvo = localStorage.getItem(`diasPorHabito-${dadoUser.id}`)
+    return salvo ? JSON.parse(salvo) : {}
+  })
+
+  function toggleHabito(habit) {
+    setHabitosSelecionados(prev => {
+      const novo = prev.find(h => h.val === habit.val)
+        ? prev.filter(h => h.val !== habit.val)
+        : [...prev, habit]
+      localStorage.setItem(`habitos-${dadoUser.id}`, JSON.stringify(novo))
+      return novo
+    })
+  }
 
   function selectDia(habitoVal, dia) {
     const dataDia = new Date(ano, mes, dia)
@@ -38,12 +55,14 @@ function Home({ dadoUser, modalAberto, setModalAberto, habitosSelecionados, togg
 
     setDiasPorHabito(prev => {
       const atual = prev[habitoVal] || []
-      return {
+      const novo = {
         ...prev,
         [habitoVal]: atual.includes(dia)
           ? atual.filter(d => d !== dia)
           : [...atual, dia],
       }
+      localStorage.setItem(`diasPorHabito-${dadoUser.id}`, JSON.stringify(novo))
+      return novo
     })
   }
 
