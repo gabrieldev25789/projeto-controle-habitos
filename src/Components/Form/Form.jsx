@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form( { setDadoUser, email, setEmail } ) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+function Form( { setDadoUser, email, setEmail, username, password, confirmPassword, setUsername, setPassword, setConfirmPassword } ) {
+
   const [entrar, setEntrar] = useState(false)
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
+// Form.jsx — addUser
 function addUser() {
   if (!username || !email || !password) return
 
@@ -18,7 +17,6 @@ function addUser() {
     return
   }
 
-  // busca correta: percorre todas as chaves user-* e acha pelo email
   const jaExiste = Object.keys(localStorage)
     .filter(key => key.startsWith("user-"))
     .map(key => JSON.parse(localStorage.getItem(key)))
@@ -29,12 +27,13 @@ function addUser() {
     return
   }
 
+  // criado aqui, uma única vez, no momento certo
   const id   = crypto.randomUUID()
   const user = { id, nome: username, email, senha: password }
+
   localStorage.setItem(`user-${id}`, JSON.stringify(user))
   localStorage.setItem("sessao", id)
   setDadoUser(user)
-
   alert("Conta criada")
   navigate("/Home")
 
@@ -50,26 +49,23 @@ function addUser() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-    function entrarComUser() {
+  function entrarComUser() {
+      if (!email || !password) {
+        alert("Preencha todos os campos")
+        return
+      }
 
     const usuario = Object.keys(localStorage)
     .filter(key => key.startsWith("user-"))
     .map(key => JSON.parse(localStorage.getItem(key)))
     .find(u => u.email === email)
 
-      if (!email || !password) {
-        alert("Preencha todos os campos")
-        return
-      }
-
-      const existeUser = JSON.parse(localStorage.getItem(`user-${email}`))
-
-      if (!existeUser) {
+      if (!usuario) {
         alert("User não encontrado")
         return
       }
 
-      if (existeUser.senha !== password) {
+      if (usuario.senha !== password) {
         alert("Senha incorreta")
         return
       }
