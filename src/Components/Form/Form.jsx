@@ -10,42 +10,39 @@ function Form( { setDadoUser, email, setEmail } ) {
 
 const navigate = useNavigate()
 
-  function addUser() {
-    if (!username || !email || !password) return
+function addUser() {
+  if (!username || !email || !password) return
 
-    if(password !== confirmPassword) {
-      alert("As senhas não condizem")
-      return 
-    }
-
-    // 1. lê antes de salvar
-    const existente = JSON.parse(localStorage.getItem(`user-${email}`))
-
-    // 2. checa se já existe
-    if (existente?.nome === username) {
-      alert("Já existe um user com esse nome")
-      return
-    }
-
-    if (existente?.email === email) {
-      alert("Esse email já foi cadastrado")
-      return
-    }
-
-    // 3. só agora salva
-    const id = crypto.randomUUID()
-    const user = {id, nome: username, email: email, senha: password }
-    localStorage.setItem(`user-${id}`, JSON.stringify(user))
-    localStorage.setItem("sessao", id)
-    setDadoUser(user)
-
-    alert("Conta criada")  
-    navigate("/Home")  
-    
-    const setters = [setUsername, setPassword, setConfirmPassword]
-    setters.forEach((set)=> set(""))
-    setEmail("")
+  if (password !== confirmPassword) {
+    alert("As senhas não condizem")
+    return
   }
+
+  // busca correta: percorre todas as chaves user-* e acha pelo email
+  const jaExiste = Object.keys(localStorage)
+    .filter(key => key.startsWith("user-"))
+    .map(key => JSON.parse(localStorage.getItem(key)))
+    .find(u => u.email === email)
+
+  if (jaExiste) {
+    alert("Esse email já foi cadastrado")
+    return
+  }
+
+  const id   = crypto.randomUUID()
+  const user = { id, nome: username, email, senha: password }
+  localStorage.setItem(`user-${id}`, JSON.stringify(user))
+  localStorage.setItem("sessao", id)
+  setDadoUser(user)
+
+  alert("Conta criada")
+  navigate("/Home")
+
+  setUsername("")
+  setPassword("")
+  setConfirmPassword("")
+  setEmail("")
+}
 
   useEffect(() => {
   localStorage.removeItem("sessao")
