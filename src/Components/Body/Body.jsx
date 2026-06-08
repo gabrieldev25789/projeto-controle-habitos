@@ -1,90 +1,95 @@
-import { useState } from "react"
 import "./Body.css"
 
-function Body({ habitosSelecionados }) {
-  const hoje = new Date()
-  const ano = hoje.getFullYear()
-  const mes = hoje.getMonth()
+const DIAS_SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"]
 
-  const nomeMes = hoje.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
-  const primeiroDia = new Date(ano, mes, 1).getDay()
-  const diasNoMes = new Date(ano, mes + 1, 0).getDate()
+function CardHabito({ habito, nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabito, selectDia }) {
+  
+  return (
+    <div className="habit-card">
 
-  const DIAS_SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"]
+      <div className="card-header">
+        <span className={`habit-badge habit-badge--${habito.tipo}`}>
+          <span className="badge-dot" />
+          {habito.label}
+        </span>
+        <button type="button" className="card-menu">⋯</button>
+      </div>
 
-const [diasPorHabito, setDiasPorHabito] = useState({})
+      <div className="cal-nav">
+        <button type="button" className="cal-btn">‹</button>
+        <span className="cal-month">{nomeMes}</span>
+        <button type="button" className="cal-btn">›</button>
+      </div>
 
-function selectDia(habitoVal, dia) {
-    const dataDia = new Date(ano, mes, dia)
+      <div className="cal-grid">
+        {DIAS_SEMANA.map(d => (
+          <div key={d} className="cal-label">{d}</div>
+        ))}
 
-    if(dataDia > hoje) return 
+        {Array.from({ length: primeiroDia }).map((_, i) => (
+          <div key={`empty-${i}`} className="cal-day cal-day--empty" />
+        ))}
 
-    setDiasPorHabito(prev => {
-        const atual = prev[habitoVal] || []
-        return {
-        ...prev,
-        [habitoVal]: atual.includes(dia)
-            ? atual.filter(d => d !== dia)
-            : [...atual, dia]
-        }
-    })
+        {Array.from({ length: diasNoMes }).map((_, i) => {
+          const dia = i + 1
+          const isHoje = dia === hoje.getDate()
+          const marcado = (diasPorHabito[habito.val] || []).includes(dia)
+          return (
+            <div
+              key={dia}
+              className={[
+                "cal-day",
+                isHoje  ? "cal-day--today"                : "",
+                marcado ? `cal-day--marked-${habito.tipo}` : "",
+              ].filter(Boolean).join(" ")}
+              onClick={() => selectDia(habito.val, dia)}
+            >
+              {dia}
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="card-footer">
+        <span className="streak-label">sequência atual</span>
+        <span className="streak-num">{(diasPorHabito[habito.val] || []).length} dias</span>
+      </div>
+
+    </div>
+  )
 }
+
+function Body({ habitosSelecionados, nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabito, selectDia }) {
+  const habitos = habitosSelecionados.filter(h => h.tipo === "good")
+  const vicios  = habitosSelecionados.filter(h => h.tipo === "bad")
+
+  const props = { nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabito, selectDia }
 
   return (
     <div className="body">
-      {habitosSelecionados.map((habito) => (
-        <div key={habito.val} className="habit-card">
 
-          <div className="card-header">
-            <span className={`habit-badge habit-badge--${habito.tipo}`}>
-              <span className="badge-dot" />
-              {habito.label}
-            </span>
-            <button type="button" className="card-menu">⋯</button>
-          </div>
-
-          <div className="cal-nav">
-            <button type="button" className="cal-btn">‹</button>
-            <span className="cal-month">{nomeMes}</span>
-            <button type="button" className="cal-btn">›</button>
-          </div>
-
-          <div className="cal-grid">
-            {DIAS_SEMANA.map(d => (
-              <div key={d} className="cal-label">{d}</div>
+      {habitos.length > 0 && (
+        <section className="section">
+          <p className="section-label">Hábitos</p>
+          <div className="cards-row">
+            {habitos.map(habito => (
+              <CardHabito key={habito.val} habito={habito} {...props} />
             ))}
+          </div>
+        </section>
+      )}
 
-            {Array.from({ length: primeiroDia }).map((_, i) => (
-              <div key={`empty-${i}`} className="cal-day cal-day--empty" />
+      {vicios.length > 0 && (
+        <section className="section">
+          <p className="section-label">Vícios</p>
+          <div className="cards-row">
+            {vicios.map(habito => (
+              <CardHabito key={habito.val} habito={habito} {...props} />
             ))}
-
-            {Array.from({ length: diasNoMes }).map((_, i) => {
-              const dia = i + 1
-              const isHoje = dia === hoje.getDate()
-              return (
-                
-            <div
-                key={dia}
-                className={`cal-day 
-                ${isHoje ? "cal-day--today" : ""} 
-                ${(diasPorHabito[habito.val] || []).includes(dia) ? `cal-day--marked-${habito.tipo}` : ""}`}
-                onClick={() => selectDia(habito.val, dia)}
-                >
-                {dia}
-            </div>
-            )
-            })}
           </div>
+        </section>
+      )}
 
-          <div className="card-footer">
-            <span className="streak-label">sequência atual</span>
-           
-            <span className="streak-num">{(diasPorHabito[habito.val] || []).length} dias</span>
-            
-          </div>
-
-        </div>
-      ))}
     </div>
   )
 }
