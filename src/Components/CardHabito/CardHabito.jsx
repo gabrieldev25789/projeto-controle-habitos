@@ -1,9 +1,26 @@
 import "./CardHabito.css"
+import { useState } from "react"
 
-const DIAS_SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"]
+const DIAS_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"]
 
-function CardHabito({ habito, nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabito, selectDia }) {
-  
+function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
+  const [mesAtual, setMesAtual] = useState(() => new Date())
+
+  const ano  = mesAtual.getFullYear()
+  const mes  = mesAtual.getMonth()
+
+  const primeiroDia = new Date(ano, mes, 1).getDay()
+  const diasNoMes   = new Date(ano, mes + 1, 0).getDate()
+  const nomeMes     = mesAtual.toLocaleString("pt-BR", { month: "long", year: "numeric" })
+
+  function irParaMesAnterior() {
+    setMesAtual(m => new Date(m.getFullYear(), m.getMonth() - 1, 1))
+  }
+
+  function irParaProximoMes() {
+    setMesAtual(m => new Date(m.getFullYear(), m.getMonth() + 1, 1))
+  }
+
   return (
     <div className="habit-card">
 
@@ -16,9 +33,9 @@ function CardHabito({ habito, nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabi
       </div>
 
       <div className="cal-nav">
-        <button type="button" className="cal-btn">‹</button>
+        <button type="button" className="cal-btn" onClick={irParaMesAnterior}>‹</button>
         <span className="cal-month">{nomeMes}</span>
-        <button type="button" className="cal-btn">›</button>
+        <button type="button" className="cal-btn" onClick={irParaProximoMes}>›</button>
       </div>
 
       <div className="cal-grid">
@@ -32,8 +49,12 @@ function CardHabito({ habito, nomeMes, primeiroDia, diasNoMes, hoje, diasPorHabi
 
         {Array.from({ length: diasNoMes }).map((_, i) => {
           const dia = i + 1
-          const isHoje = dia === hoje.getDate()
+          const isHoje =
+            mes === hoje.getMonth() &&
+            ano === hoje.getFullYear() &&
+            dia === hoje.getDate()
           const marcado = (diasPorHabito[habito.val] || []).includes(dia)
+
           return (
             <div
               key={dia}
