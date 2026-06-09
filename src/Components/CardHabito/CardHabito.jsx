@@ -13,6 +13,8 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
   const diasNoMes   = new Date(ano, mes + 1, 0).getDate()
   const nomeMes     = mesAtual.toLocaleString("pt-BR", { month: "long", year: "numeric" })
 
+  const chave = `${habito.val}-${ano}-${mes}`
+
   function irParaMesAnterior() {
     setMesAtual(m => new Date(m.getFullYear(), m.getMonth() - 1, 1))
   }
@@ -53,7 +55,7 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
             mes === hoje.getMonth() &&
             ano === hoje.getFullYear() &&
             dia === hoje.getDate()
-          const marcado = (diasPorHabito[habito.val] || []).includes(dia)
+          const marcado = (diasPorHabito[chave] || []).includes(dia)
 
           return (
             <div
@@ -63,7 +65,7 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
                 isHoje  ? "cal-day--today"                : "",
                 marcado ? `cal-day--marked-${habito.tipo}` : "",
               ].filter(Boolean).join(" ")}
-              onClick={() => selectDia(habito.val, dia)}
+              onClick={() => selectDia(habito.val, dia, ano, mes)}
             >
               {dia}
             </div>
@@ -73,7 +75,7 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
 
       <div className="card-footer">
         <span className="streak-label">sequência atual</span>
-        <span className="streak-num">{(diasPorHabito[habito.val] || []).length} dias</span>
+        <span className="streak-num">{(diasPorHabito[chave] || []).length} dias</span>
       </div>
 
     </div>
