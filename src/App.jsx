@@ -6,43 +6,21 @@ import { useState } from "react"
 
 
 function App() {
-  const [modalAberto, setModalAberto] = useState(false)
 
-  const [dadoUser, setDadoUser] = useState(() => {
-    const id = localStorage.getItem("sessao")
-    if (!id) return null
-    return JSON.parse(localStorage.getItem(`user-${id}`))
+    const [dadoUser, setDadoUser] = useState(()=>{
+    const emailAtivo = localStorage.getItem("sessao")
+    if(!emailAtivo) return null 
+    return JSON.parse(localStorage.getItem(`user-${emailAtivo}`))
   })
 
   const [email, setEmail] = useState(() => {
-    const id = localStorage.getItem("sessao")
-    if (!id) return ""
-    const user = JSON.parse(localStorage.getItem(`user-${id}`))
-    return user?.email || ""
+    return localStorage.getItem("sessao") || ""
   })
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  return (
+   return (
     <Routes>
-      <Route path="/" element={<Form
-        setDadoUser={setDadoUser}
-        email={email}
-        setEmail={setEmail}
-        username={username}
-        setUsername={setUsername}
-        password={password}
-        setPassword={setPassword}
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-      />} />
-      <Route path="/Home" element={<Home
-        dadoUser={dadoUser}
-        modalAberto={modalAberto}
-        setModalAberto={setModalAberto}
-      />} />
+      <Route path="/" element={<Form setDadoUser={setDadoUser} email={email} setEmail={setEmail}/>} />
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email}/>} />
     </Routes>
   )
 }
