@@ -1,0 +1,219 @@
+/* ── card ── */
+.habit-card {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  padding: 1.25rem;
+  width: 25rem;
+  margin: 5rem auto;
+}
+
+/* ── header ── */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.habit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+.habit-badge--good {
+  background: #0F2E1E;
+  color: #5DCAA5;
+  border: 1px solid #1D9E7540;
+}
+
+.habit-badge--bad {
+  background: #2E1008;
+  color: #F0997B;
+  border: 1px solid #D85A3040;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.card-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #444;
+  font-size: 18px;
+  padding: 0;
+  line-height: 1;
+}
+
+/* ── navegação ── */
+.cal-nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: .875rem;
+}
+
+.cal-month {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0e0e0;
+  letter-spacing: .03em;
+}
+
+.cal-btn {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  font-size: 13px;
+}
+
+/* ── grid ── */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-label {
+  font-size: 10px;
+  color: #444;
+  text-align: center;
+  padding: 3px 0;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border-radius: 7px;
+  color: #555;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.cal-day:hover {
+  background: #222;
+  color: #aaa;
+}
+
+.cal-day--empty {
+  pointer-events: none;
+}
+
+.cal-day--today {
+  background: #222;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.cal-day--marked-good {
+  background: #0F2E1E;
+  color: #5DCAA5;
+  font-weight: 500;
+}
+
+.cal-day--marked-bad {
+  background: #2E1008;
+  color: #F0997B;
+  font-weight: 500;
+}
+
+.cal-day--marked-good {
+  background: #0F2E1E;
+  color: #5DCAA5;
+  font-weight: 500;
+}
+
+.cal-day--marked-bad {
+  background: #2E1008;
+  color: #F0997B;
+  font-weight: 500;
+}
+
+/* ── footer ── */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.125rem;
+  padding-top: 1.125rem;
+  border-top: 1px solid #1e1e1e;
+}
+
+.footer-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-icon--good { background: #0F2E1E; }
+.footer-icon--bad  { background: #2E1008; }
+
+.streak-label {
+  font-size: 11px;
+  color: #555;
+  margin: 0;
+}
+
+.streak-num {
+  font-size: 14px;
+  font-weight: 500;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+.cards-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* remove o margin: 5rem auto do .habit-card e o width: 25rem */
+.habit-card {
+  width: 30rem;
+  min-width: 200px;
+  /* restante do CSS que já tem */
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: .75rem;
+}
+
+.section + .section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #1e1e1e;
+}
