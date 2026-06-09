@@ -22,12 +22,6 @@ const HABITS = {
 
 function Home({ dadoUser, modalAberto, setModalAberto }) {
   const hoje = new Date()
-  const ano  = hoje.getFullYear()
-  const mes  = hoje.getMonth()
-
-  const nomeMes     = hoje.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })
-  const primeiroDia = new Date(ano, mes, 1).getDay()
-  const diasNoMes   = new Date(ano, mes + 1, 0).getDate()
 
   const [habitosSelecionados, setHabitosSelecionados] = useState(() => {
     const salvo = localStorage.getItem(`habitos-${dadoUser.id}`)
@@ -49,15 +43,17 @@ function Home({ dadoUser, modalAberto, setModalAberto }) {
     })
   }
 
-  function selectDia(habitoVal, dia) {
+  // agora recebe ano e mes do card
+  function selectDia(habitoVal, dia, ano, mes) {
     const dataDia = new Date(ano, mes, dia)
     if (dataDia > hoje) return
 
     setDiasPorHabito(prev => {
-      const atual = prev[habitoVal] || []
+      const chave = `${habitoVal}-${ano}-${mes}`  // chave com mês/ano
+      const atual = prev[chave] || []
       const novo = {
         ...prev,
-        [habitoVal]: atual.includes(dia)
+        [chave]: atual.includes(dia)
           ? atual.filter(d => d !== dia)
           : [...atual, dia],
       }
@@ -87,9 +83,6 @@ function Home({ dadoUser, modalAberto, setModalAberto }) {
 
       <Body
         habitosSelecionados={habitosSelecionados}
-        nomeMes={nomeMes}
-        primeiroDia={primeiroDia}
-        diasNoMes={diasNoMes}
         hoje={hoje}
         diasPorHabito={diasPorHabito}
         selectDia={selectDia}
