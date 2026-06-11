@@ -69,9 +69,7 @@ function Home({ dadoUser, modalAberto, setModalAberto }) {
       <Header />
       {!modalAberto && <h2>Bem vindo {dadoUser.nome}</h2>}
 
-      <button onClick={() => setModalAberto(true)}>AAAAAAAA</button>
-
-      {modalAberto && (
+      {modalAberto && 
         <Modal
           modalAberto={modalAberto}
           setModalAberto={setModalAberto}
@@ -79,8 +77,8 @@ function Home({ dadoUser, modalAberto, setModalAberto }) {
           habitosSelecionados={habitosSelecionados}
           toggleHabito={toggleHabito}
         />
-      )}
-
+      }
+      
       <Body
         habitosSelecionados={habitosSelecionados}
         hoje={hoje}
