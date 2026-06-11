@@ -23,9 +23,26 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
     setMesAtual(m => new Date(m.getFullYear(), m.getMonth() + 1, 1))
   }
 
-  const totalDias = Object.entries(diasPorHabito)
-  .filter(([key]) => key.startsWith(`${habito.val}-`))
-  .reduce((acc, [, dias]) => acc + dias.length, 0)
+function calcularStreak() {
+  let streak = 0
+  let diaVerificando = new Date(hoje)
+
+  while (true) {
+    const a = diaVerificando.getFullYear()
+    const m = diaVerificando.getMonth()
+    const d = diaVerificando.getDate()
+    const c = `${habito.val}-${a}-${m}`
+
+    if (!(diasPorHabito[c] || []).includes(d)) break
+
+    streak++
+    diaVerificando.setDate(diaVerificando.getDate() - 1)
+  }
+
+  return streak
+}
+
+const streak = calcularStreak()
 
   return (
     <div className="habit-card">
@@ -77,8 +94,15 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
       </div>
 
       <div className="card-footer">
-        <span className="streak-label">sequência atual</span>
-        <span className="streak-num">{totalDias} dias</span>
+
+        <span className="streak-label">
+          {streak >= 2 ? "🔥 sequência" : "sequência atual"}
+        </span>
+        <span className="streak-num">
+          {streak >= 2 ? `${streak} dias seguidos` : `${streak} dia`}
+        </span>
+        <span className="streak-label">total</span>
+        <span className="streak-num">{(diasPorHabito[chave] || []).length} {(diasPorHabito[chave] || []).length === 1 ? "dia" : "dias"}</span>
       </div>
 
     </div>
