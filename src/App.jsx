@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom"
 import  Form  from "./Components/Form/Form.jsx"
 import Home from "./Components/Home/Home.jsx"
 import { useState } from "react"
+import Habitos from "./Components/Habitos/Habitos.jsx"
 
 
 function App() {
@@ -17,26 +18,36 @@ function App() {
     return localStorage.getItem("sessao") || ""
   })
 
+  const [habitosSelecionados, setHabitosSelecionados] = useState(() => {
+    const sessao = localStorage.getItem("sessao")
+    if (!sessao) return []
+    const salvo = localStorage.getItem(`habitos-${sessao}`)
+    return salvo ? JSON.parse(salvo) : []
+  })
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
    return (
     <Routes>
-      <Route path="/" 
-      element={
-      <Form setDadoUser={setDadoUser} 
-      email={email} 
-      setEmail={setEmail} 
-      username={username} 
-      setUsername={setUsername} 
-      password={password}
-      setPassword={setPassword}
-      confirmPassword={confirmPassword}
-      setConfirmPassword={setConfirmPassword}
+      <Route path="/" element={<Form 
+        setDadoUser={setDadoUser}
+        setHabitosSelecionados={setHabitosSelecionados}
+        email={email} 
+        setEmail={setEmail} 
+        username={username} 
+        setUsername={setUsername} 
+        password={password}
+        setPassword={setPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
       />}/>
 
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email}/>}/>
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} habitosSelecionados={habitosSelecionados} setHabitosSelecionados={setHabitosSelecionados}/>}/>
+
+      <Route path="/Habitos" element={<Habitos dadosUser={dadoUser} 
+      habitosSelecionados={habitosSelecionados}/> }/>
 
     </Routes>
   )
