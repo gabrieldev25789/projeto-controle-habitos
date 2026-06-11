@@ -23,6 +23,10 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
     setMesAtual(m => new Date(m.getFullYear(), m.getMonth() + 1, 1))
   }
 
+  const totalDias = Object.entries(diasPorHabito)
+  .filter(([key]) => key.startsWith(`${habito.val}-`))
+  .reduce((acc, [, dias]) => acc + dias.length, 0)
+
   return (
     <div className="habit-card">
 
@@ -74,7 +78,7 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
 
       <div className="card-footer">
         <span className="streak-label">sequência atual</span>
-        <span className="streak-num">{(diasPorHabito[chave] || []).length} dias</span>
+        <span className="streak-num">{totalDias} dias</span>
       </div>
 
     </div>
