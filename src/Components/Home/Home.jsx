@@ -20,7 +20,7 @@ const HABITS = {
   ],
 }
 
-function Home({ dadoUser }) {
+function Home({ dadoUser, habitosSelecionados, setHabitosSelecionados }) {
 
   const [modalAberto, setModalAberto] = useState(() => {
     const salvo = localStorage.getItem(`habitos-${dadoUser.id}`)
@@ -29,11 +29,6 @@ function Home({ dadoUser }) {
   })
 
   const hoje = new Date()
-
-  const [habitosSelecionados, setHabitosSelecionados] = useState(() => {
-    const salvo = localStorage.getItem(`habitos-${dadoUser.id}`)
-    return salvo ? JSON.parse(salvo) : []
-  })
 
   const [diasPorHabito, setDiasPorHabito] = useState(() => {
     const salvo = localStorage.getItem(`diasPorHabito-${dadoUser.id}`)
