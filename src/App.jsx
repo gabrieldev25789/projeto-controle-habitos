@@ -21,8 +21,6 @@ function App() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
 
-  const [modalAberto, setModalAberto] = useState(true)
-
    return (
     <Routes>
       <Route path="/" 
@@ -38,7 +36,7 @@ function App() {
       setConfirmPassword={setConfirmPassword}
       />}/>
 
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} modalAberto={modalAberto} setModalAberto={setModalAberto}/>}/>
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email}/>}/>
 
     </Routes>
   )
