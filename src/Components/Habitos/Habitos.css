@@ -1,0 +1,81 @@
+.habitos-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.habitos-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.section-icon {
+  font-size: 1.25rem;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+  margin: 0;
+}
+
+.section-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--border);
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+
+.habitos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.habito-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+}
+
+.habito-item--good {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.habito-item--bad {
+  background: color-mix(in srgb, #ef4444 8%, transparent);
+  border-color: color-mix(in srgb, #ef4444 20%, transparent);
+}
+
+.habito-emoji {
+  font-size: 1.1rem;
+}
+
+.habito-label {
+  font-size: 0.9rem;
+  color: var(--text);
+  text-transform: capitalize;
+}
