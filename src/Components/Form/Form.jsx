@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form( { setDadoUser, email, setEmail, username, password, confirmPassword, setUsername, setPassword, setConfirmPassword } ) {
+function Form( { setDadoUser, setHabitosSelecionados, email, setEmail, username, password, confirmPassword, setUsername, setPassword, setConfirmPassword } ) {
 
   const [entrar, setEntrar] = useState(false)
 
@@ -36,6 +36,7 @@ function addUser() {
   setDadoUser(user)
   alert("Conta criada")
   navigate("/Home")
+  setHabitosSelecionados([])
 
   setUsername("")
   setPassword("")
@@ -72,6 +73,8 @@ function addUser() {
 
       localStorage.setItem("sessao", usuario.id)
       setDadoUser(usuario)
+      const salvo = localStorage.getItem(`habitos-${usuario.id}`)
+      setHabitosSelecionados(salvo ? JSON.parse(salvo) : [])
       navigate("/Home")
       setEmail("")
     }
