@@ -41,10 +41,9 @@ function CardHabito({ habito, hoje, diasPorHabito, selectDia }) {
       </div>
 
       <div className="cal-grid">
-        {DIAS_SEMANA.map(d => (
-          <div key={d} className="cal-label">{d}</div>
+        {DIAS_SEMANA.map((d, i) => (
+          <div key={i} className="cal-label">{d}</div>
         ))}
-
         {Array.from({ length: primeiroDia }).map((_, i) => (
           <div key={`empty-${i}`} className="cal-day cal-day--empty" />
         ))}
