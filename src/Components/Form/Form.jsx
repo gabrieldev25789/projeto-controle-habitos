@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
-function Form( { setDadoUser, setHabitosSelecionados, email, setEmail, username, password, confirmPassword, setUsername, setPassword, setConfirmPassword } ) {
+function Form( {id, setDadoUser, setHabitosSelecionados, email, setEmail, username, password, confirmPassword, setUsername, setPassword, setConfirmPassword, setDiasPorHabito } ) {
 
   const [entrar, setEntrar] = useState(false)
 
@@ -28,7 +28,6 @@ function addUser() {
   }
 
   // criado aqui, uma única vez, no momento certo
-  const id   = crypto.randomUUID()
   const user = { id, nome: username, email, senha: password }
 
   localStorage.setItem(`user-${id}`, JSON.stringify(user))
@@ -37,7 +36,8 @@ function addUser() {
   alert("Conta criada")
   navigate("/Home")
   setHabitosSelecionados([])
-
+  setDiasPorHabito({})
+  
   setUsername("")
   setPassword("")
   setConfirmPassword("")
@@ -75,6 +75,9 @@ function addUser() {
       setDadoUser(usuario)
       const salvo = localStorage.getItem(`habitos-${usuario.id}`)
       setHabitosSelecionados(salvo ? JSON.parse(salvo) : [])
+
+      const diasSalvos = localStorage.getItem(`diasPorHabito-${usuario.id}`)
+      setDiasPorHabito(diasSalvos ? JSON.parse(diasSalvos) : {})
       navigate("/Home")
       setEmail("")
     }
