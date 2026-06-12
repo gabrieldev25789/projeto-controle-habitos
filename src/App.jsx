@@ -25,6 +25,14 @@ function App() {
     return salvo ? JSON.parse(salvo) : []
   })
 
+    const [id] = useState(() => crypto.randomUUID())
+
+    const [diasPorHabito, setDiasPorHabito] = useState(() => {
+      if (!dadoUser) return {}  // ← guarda contra null
+      const salvo = localStorage.getItem(`diasPorHabito-${dadoUser.id}`)
+      return salvo ? JSON.parse(salvo) : {}
+    })
+
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -42,12 +50,18 @@ function App() {
         setPassword={setPassword}
         confirmPassword={confirmPassword}
         setConfirmPassword={setConfirmPassword}
+        id={id}
+        setDiasPorHabito={setDiasPorHabito}
       />}/>
 
-      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} habitosSelecionados={habitosSelecionados} setHabitosSelecionados={setHabitosSelecionados}/>}/>
+      <Route path="/Home" element={<Home dadoUser={dadoUser} email={email} habitosSelecionados={habitosSelecionados} setHabitosSelecionados={setHabitosSelecionados} 
+      diasPorHabito={diasPorHabito} 
+      setDiasPorHabito={setDiasPorHabito}/>}/>
 
-      <Route path="/Habitos" element={<Habitos dadosUser={dadoUser} 
-      habitosSelecionados={habitosSelecionados}/> }/>
+      <Route path="/Habitos" element={<Habitos 
+      dadosUser={dadoUser} 
+      habitosSelecionados={habitosSelecionados}
+      diasPorHabito={diasPorHabito}/>}/>
 
     </Routes>
   )
