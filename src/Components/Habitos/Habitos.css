@@ -204,3 +204,45 @@
   border-radius: 999px;
   white-space: nowrap;
 }
+
+/* toggle hábito */
+.habito-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 0.25rem 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+}
+
+.habito-toggle:hover {
+  opacity: 0.75;
+}
+
+/* toggle vício */
+.vicio-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ef4444;
+  padding: 0.25rem 0;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s;
+}
+
+.vicio-toggle:hover {
+  opacity: 0.75;
+}
