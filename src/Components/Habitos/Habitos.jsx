@@ -1,4 +1,5 @@
 import "./Habitos.css"
+import Header from "../Header/Header.jsx"
 
 function Habitos({dadosUser, habitosSelecionados }) {
 
@@ -9,6 +10,7 @@ function Habitos({dadosUser, habitosSelecionados }) {
 
   return (
     <>
+    <Header /> 
         <div className="habitos-page">
 
         <section className="habitos-section">
