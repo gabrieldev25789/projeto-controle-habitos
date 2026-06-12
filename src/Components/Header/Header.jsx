@@ -12,7 +12,7 @@ function Header() {
       </Link>
 
       <nav className="header-nav">
-        <Link className={`nav-item ${pathname === "/cadastro" ? "active" : ""}`} to="/cadastro">
+        <Link className={`nav-item ${pathname === "/home" ? "active" : ""}`} to="/Home">
           <i className="ti ti-home" />
           início
         </Link>
