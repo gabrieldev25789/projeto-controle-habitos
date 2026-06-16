@@ -217,3 +217,40 @@
   padding-top: 2rem;
   border-top: 1px solid #1e1e1e;
 }
+
+.habito-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.375rem;
+}
+
+.habito-nav-btn {
+    background: #ffffff0f;
+    border: 1px solid #ffffff18;
+    color: #e5e5e5;
+    font-size: 1.1rem;
+    line-height: 1;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.habito-nav-btn:hover {
+    background: #ffffff1a;
+}
+
+.habito-nav-mes {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: capitalize;
+    flex: 1;
+    text-align: center;
+}
