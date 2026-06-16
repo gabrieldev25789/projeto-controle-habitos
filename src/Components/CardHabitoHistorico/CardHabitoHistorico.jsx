@@ -1,5 +1,4 @@
 import { useState } from "react"
-import "./CardHabitoHistorico.css"
 
 const meses = [
     { valor: 1,  mes: "janeiro",   diasMes: 31 },
