@@ -16,11 +16,33 @@ const meses = [
 ]
 
 export function CardVicio({ v, diasPorHabito }) {
-    const [aberto, setAberto] = useState(false)
+    const hoje = new Date()
+    const [ano, setAno] = useState(hoje.getFullYear())
+    const [mesIdx, setMesIdx] = useState(hoje.getMonth())
 
-    const registros = Object.entries(diasPorHabito).filter(([chave]) =>
-        chave.startsWith(v.val)
-    )
+    const chave = `${v.val}-${ano}-${mesIdx}`
+    const dias = diasPorHabito[chave] ?? []
+    const mesObj = meses.find(m => m.valor === mesIdx)
+    const nomeMes = mesObj?.mes ?? mesIdx
+    const diasMes = mesObj?.diasMes ?? "?"
+
+    function avancar() {
+        if (mesIdx === 11) {
+            setMesIdx(0)
+            setAno(a => a + 1)
+        } else {
+            setMesIdx(m => m + 1)
+        }
+    }
+
+    function voltar() {
+        if (mesIdx === 0) {
+            setMesIdx(11)
+            setAno(a => a - 1)
+        } else {
+            setMesIdx(m => m - 1)
+        }
+    }
 
     return (
         <li className="vicio-item">
@@ -28,31 +50,16 @@ export function CardVicio({ v, diasPorHabito }) {
                 <span className="vicio-emoji">{v.emoji}</span>
                 <span className="vicio-label">{v.label}</span>
             </div>
-            {registros.length > 0 && (
-                <>
-                    <button onClick={() => setAberto(p => !p)} className="vicio-toggle">
-                        {aberto ? "▲ ocultar" : `▼ ver histórico (${registros.length} ${registros.length === 1 ? "mês" : "meses"})`}
-                    </button>
-                    {aberto && (
-                        <ul className="vicio-registros">
-                            {registros.map(([chave, dias]) => {
-                                const partes  = chave.split("-")
-                                const mesNum  = Number(partes.at(-1))
-                                const ano     = partes.at(-2)
-                                const mesObj  = meses.find(m => m.valor === mesNum + 1)
-                                const nomeMes = mesObj?.mes
-                                const diasMes = mesObj?.diasMes
-                                return (
-                                    <li key={chave} className="vicio-registro">
-                                        <span className="vicio-registro-data">📅 {nomeMes} de {ano}</span>
-                                        <span className="vicio-dias">{dias.length} {dias.length === 1 ? "dia" : "dias"} / {diasMes}</span>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )}
-                </>
-            )}
+
+            <div className="habito-nav">
+                <button onClick={voltar} className="habito-nav-btn">‹</button>
+                <span className="habito-nav-mes">{nomeMes} de {ano}</span>
+                <button onClick={avancar} className="habito-nav-btn">›</button>
+            </div>
+
+            <span className="vicio-dias">
+                {dias.length} {dias.length === 1 ? "dia" : "dias"} / {diasMes}
+            </span>
         </li>
     )
 }
