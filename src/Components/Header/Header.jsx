@@ -12,7 +12,7 @@ function Header() {
       </Link>
 
       <nav className="header-nav">
-        <Link className={`nav-item ${pathname === "/home" ? "active" : ""}`} to="/Home">
+        <Link className={`nav-item ${pathname === "/Home" ? "active" : ""}`} to="/Home">
           <i className="ti ti-home" />
           início
         </Link>
@@ -24,9 +24,9 @@ function Header() {
           <i className="ti ti-chart-bar" />
           progresso
         </Link>
-        <Link className={`nav-item ${pathname === "/config" ? "active" : ""}`} to="/config">
+        <Link className={`nav-item ${pathname === "/Perfil" ? "active" : ""}`} to="/Perfil">
           <i className="ti ti-settings" />
-          config
+          Perfil
         </Link>
       </nav>
 
