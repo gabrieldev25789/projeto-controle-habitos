@@ -5,6 +5,7 @@ import Home from "./Components/Home/Home.jsx"
 import { useState } from "react"
 import Habitos from "./Components/Habitos/Habitos.jsx"
 import Progresso from "./Components/Progresso/Progresso.jsx"
+import Perfil from "./Components/Perfil/Perfil.jsx"
 
 
 function App() {
@@ -65,6 +66,8 @@ function App() {
       diasPorHabito={diasPorHabito}/>}/>
 
     <Route path="/Progresso" element={<Progresso diasPorHabito={diasPorHabito}/>} />
+    <Route path="/Perfil" element={<Perfil dadosUser={dadoUser}/>} />
+    
     </Routes>
   )
 }
