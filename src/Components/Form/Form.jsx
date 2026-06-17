@@ -44,11 +44,10 @@ function addUser() {
   setEmail("")
 }
 
-  useEffect(() => {
-  localStorage.removeItem("sessao")
+useEffect(() => {
   setEmail("")
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+}, [])
 
   function entrarComUser() {
       if (!email || !password) {
