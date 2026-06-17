@@ -66,7 +66,7 @@ function App() {
       diasPorHabito={diasPorHabito}/>}/>
 
     <Route path="/Progresso" element={<Progresso diasPorHabito={diasPorHabito}/>} />
-    <Route path="/Perfil" element={<Perfil dadosUser={dadoUser}/>} />
+    <Route path="/Perfil" element={<Perfil dadosUser={dadoUser} habitosSelecionados={habitosSelecionados} diasPorHabito={diasPorHabito}/>} />
     
     </Routes>
   )
