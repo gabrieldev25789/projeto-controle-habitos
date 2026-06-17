@@ -1,0 +1,97 @@
+/* Perfil.css */
+.perfil-wrapper {
+  min-height: 100vh;
+  background: #0d0d0d;
+  padding: 2rem 1rem;
+}
+
+.perfil-card {
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 480px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.perfil-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #1D9E7540;
+  border: 1px solid #1D9E7560;
+  color: #5DCAA5;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.perfil-nome {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin: 0;
+}
+
+.perfil-email {
+  font-size: 12px;
+  color: #555;
+}
+
+.perfil-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perfil-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+}
+
+.perfil-item-name {
+  font-size: 13px;
+  color: #ccc;
+  text-transform: capitalize;
+}
+
+.perfil-logout {
+  margin-top: .5rem;
+  background: #2E1008;
+  color: #F0997B;
+  border: 1px solid #D85A3040;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background .15s;
+  align-self: flex-start;
+}
+
+.perfil-logout:hover {
+  background: #3d1a0a;
+}
