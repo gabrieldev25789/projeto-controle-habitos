@@ -6,14 +6,16 @@ import { useState } from "react"
 import Habitos from "./Components/Habitos/Habitos.jsx"
 import Progresso from "./Components/Progresso/Progresso.jsx"
 import Perfil from "./Components/Perfil/Perfil.jsx"
+import { useNavigate } from "react-router-dom"
 
 
 function App() {
+  const navigate = useNavigate()
 
-  const [dadoUser, setDadoUser] = useState(()=>{
-  const emailAtivo = localStorage.getItem("sessao")
-    if(!emailAtivo) return null 
-    return JSON.parse(localStorage.getItem(`user-${emailAtivo}`))
+  const [dadoUser, setDadoUser] = useState(() => {
+    const sessao = localStorage.getItem("sessao")
+    if (!sessao || sessao === "undefined") return null  
+    return JSON.parse(localStorage.getItem(`user-${sessao}`))
   })
 
   const [email, setEmail] = useState(() => {
@@ -38,6 +40,14 @@ function App() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+
+  function logout() {
+    localStorage.removeItem("sessao")
+    setDadoUser(null)
+    setHabitosSelecionados([])
+    setDiasPorHabito({})
+    navigate("/")
+}
 
    return (
     <Routes>
@@ -66,7 +76,12 @@ function App() {
       diasPorHabito={diasPorHabito}/>}/>
 
     <Route path="/Progresso" element={<Progresso diasPorHabito={diasPorHabito}/>} />
-    <Route path="/Perfil" element={<Perfil dadosUser={dadoUser} habitosSelecionados={habitosSelecionados} diasPorHabito={diasPorHabito}/>} />
+    <Route path="/Perfil" element={<Perfil 
+      dadosUser={dadoUser} 
+      habitosSelecionados={habitosSelecionados} 
+      diasPorHabito={diasPorHabito}
+      logout={logout}
+    />} />
     
     </Routes>
   )
